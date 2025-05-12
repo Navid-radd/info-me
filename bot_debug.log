@@ -1,0 +1,572 @@
+2025-05-12 22:48:07,559 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-12 22:48:07,560 - __main__ - DEBUG - استفاده از فایل اعتبارسنجی: radoteam-0da92609cd4a.json
+2025-05-12 22:48:07,561 - __main__ - DEBUG - در حال احراز هویت با Google...
+2025-05-12 22:48:07,563 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 22:48:07,563 - __main__ - INFO - در حال باز کردن اسپردشیت با ID: 1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs
+2025-05-12 22:48:07,609 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 22:48:07,609 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 22:48:08,226 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 22:48:08,228 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 22:48:09,100 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:48:09,438 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:48:09,439 - __main__ - INFO - ورق‌های موجود: ['Websites ', 'TelegramBots ', 'WindowsApps ', 'Support ', 'Favorites ', 'Services ']
+2025-05-12 22:48:09,440 - __main__ - DEBUG - در حال دسترسی به ورق 'Websites'...
+2025-05-12 22:48:09,794 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:48:09,795 - __main__ - ERROR - خطا در دسترسی به ورق 'Websites': Websites
+2025-05-12 22:48:09,798 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 327, in worksheet
+    item = finditem(
+           ^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\Desktop\info me\info.py", line 126, in <module>
+    db[name.lower()] = sheet.worksheet(name)
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Websites
+
+2025-05-12 22:48:09,799 - __main__ - CRITICAL - خطای بحرانی در اتصال به Google Sheets:
+2025-05-12 22:48:09,800 - __main__ - CRITICAL - Websites
+2025-05-12 22:48:09,801 - __main__ - CRITICAL - Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 327, in worksheet
+    item = finditem(
+           ^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\Desktop\info me\info.py", line 126, in <module>
+    db[name.lower()] = sheet.worksheet(name)
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Websites
+
+2025-05-12 22:50:11,090 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-12 22:50:11,091 - __main__ - DEBUG - استفاده از فایل اعتبارسنجی: radoteam-0da92609cd4a.json
+2025-05-12 22:50:11,094 - __main__ - DEBUG - در حال احراز هویت با Google...
+2025-05-12 22:50:11,095 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 22:50:11,096 - __main__ - INFO - در حال باز کردن اسپردشیت با ID: 1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs
+2025-05-12 22:50:11,150 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 22:50:11,150 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 22:50:11,960 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 22:50:11,962 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 22:50:13,362 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:56:50,308 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-12 22:56:50,309 - __main__ - DEBUG - استفاده از فایل اعتبارسنجی: radoteam-0da92609cd4a.json
+2025-05-12 22:56:50,311 - __main__ - DEBUG - در حال احراز هویت با Google...
+2025-05-12 22:56:50,313 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 22:56:50,313 - __main__ - INFO - در حال باز کردن اسپردشیت با ID: 1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs
+2025-05-12 22:56:50,367 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 22:56:50,368 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 22:56:50,995 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 22:56:50,998 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 22:56:52,279 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:56:52,609 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:56:52,611 - __main__ - INFO - ورق‌های موجود: ['websites', 'telegramBots', 'windowsApps', 'support', 'favorites', 'services']
+2025-05-12 22:56:52,612 - __main__ - DEBUG - در حال دسترسی به ورق 'Websites'...
+2025-05-12 22:56:52,920 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 22:56:52,920 - __main__ - ERROR - خطا در دسترسی به ورق 'Websites': Websites
+2025-05-12 22:56:52,923 - __main__ - ERROR - Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 327, in worksheet
+    item = finditem(
+           ^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\Desktop\info me\info.py", line 141, in <module>
+    db[name.lower()] = sheet.worksheet(name)
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Websites
+
+2025-05-12 22:56:52,923 - __main__ - CRITICAL - خطای بحرانی در اتصال به Google Sheets:
+2025-05-12 22:56:52,923 - __main__ - CRITICAL - Websites
+2025-05-12 22:56:52,923 - __main__ - CRITICAL - Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 327, in worksheet
+    item = finditem(
+           ^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Mr'Rad\Desktop\info me\info.py", line 141, in <module>
+    db[name.lower()] = sheet.worksheet(name)
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mr'Rad\AppData\Local\Programs\Python\Python312\Lib\site-packages\gspread\spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Websites
+
+2025-05-12 23:01:49,199 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-12 23:01:49,200 - __main__ - DEBUG - استفاده از فایل اعتبارسنجی: radoteam-0da92609cd4a.json
+2025-05-12 23:01:49,202 - __main__ - DEBUG - در حال احراز هویت با Google...
+2025-05-12 23:01:49,202 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 23:01:49,203 - __main__ - INFO - در حال باز کردن اسپردشیت با ID: 1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs
+2025-05-12 23:01:49,233 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 23:01:49,234 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 23:01:49,821 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 23:01:49,823 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 23:01:51,687 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:52,001 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:52,002 - __main__ - INFO - ورق‌های موجود: ['websites', 'telegramBots', 'windowsApps', 'support', 'favorites', 'services']
+2025-05-12 23:01:52,003 - __main__ - DEBUG - در حال دسترسی به ورق 'Websites'...
+2025-05-12 23:01:52,318 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:52,656 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:52,983 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:53,407 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:53,730 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:54,041 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:54,042 - __main__ - INFO - ورق 'Websites' با موفقیت بارگذاری شد
+2025-05-12 23:01:54,043 - __main__ - DEBUG - در حال دسترسی به ورق 'TelegramBots'...
+2025-05-12 23:01:54,380 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:54,723 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:55,032 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:55,356 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:55,659 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:55,962 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:55,963 - __main__ - INFO - ورق 'TelegramBots' با موفقیت بارگذاری شد
+2025-05-12 23:01:55,964 - __main__ - DEBUG - در حال دسترسی به ورق 'WindowsApps'...
+2025-05-12 23:01:56,774 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:57,486 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:57,816 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:58,648 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:58,960 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:59,282 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:01:59,284 - __main__ - INFO - ورق 'WindowsApps' با موفقیت بارگذاری شد
+2025-05-12 23:01:59,287 - __main__ - DEBUG - در حال دسترسی به ورق 'Support'...
+2025-05-12 23:02:00,021 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:00,345 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:00,676 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:01,014 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:01,327 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:01,649 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:01,650 - __main__ - INFO - ورق 'Support' با موفقیت بارگذاری شد
+2025-05-12 23:02:01,651 - __main__ - DEBUG - در حال دسترسی به ورق 'Favorites'...
+2025-05-12 23:02:01,966 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:02,281 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:02,615 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:02,927 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:03,268 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:03,585 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:03,587 - __main__ - INFO - ورق 'Favorites' با موفقیت بارگذاری شد
+2025-05-12 23:02:03,587 - __main__ - DEBUG - در حال دسترسی به ورق 'Services'...
+2025-05-12 23:02:03,901 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:04,232 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:05,024 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:05,331 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:05,647 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:05,943 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:05,944 - __main__ - INFO - ورق 'Services' با موفقیت بارگذاری شد
+2025-05-12 23:02:05,945 - __main__ - INFO - 🔵 شروع فرآیند راه‌اندازی ربات...
+2025-05-12 23:02:05,946 - __main__ - INFO - 🔸 در حال اتصال به Google Sheets...
+2025-05-12 23:02:05,950 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 23:02:05,994 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 23:02:05,996 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 23:02:06,625 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 23:02:06,627 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 23:02:07,420 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:07,422 - __main__ - INFO - ✅ اتصال به Google Sheets با موفقیت برقرار شد
+2025-05-12 23:02:07,727 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:02:07,729 - __main__ - WARNING - ⚠️ شیت 'Websites' یافت نشد!
+2025-05-12 23:02:07,729 - __main__ - WARNING - ⚠️ شیت 'TelegramBots' یافت نشد!
+2025-05-12 23:02:07,730 - __main__ - WARNING - ⚠️ شیت 'WindowsApps' یافت نشد!
+2025-05-12 23:02:07,731 - __main__ - WARNING - ⚠️ شیت 'Support' یافت نشد!
+2025-05-12 23:02:07,731 - __main__ - WARNING - ⚠️ شیت 'Favorites' یافت نشد!
+2025-05-12 23:02:07,732 - __main__ - WARNING - ⚠️ شیت 'Services' یافت نشد!
+2025-05-12 23:02:07,733 - __main__ - INFO - 🔸 در حال بررسی توکن تلگرام...
+2025-05-12 23:02:07,734 - __main__ - CRITICAL - ❌ خطا در اتصال به تلگرام: Updater.__init__() got an unexpected keyword argument 'use_context'
+2025-05-12 23:09:02,486 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-12 23:09:02,487 - __main__ - DEBUG - استفاده از فایل اعتبارسنجی: radoteam-0da92609cd4a.json
+2025-05-12 23:09:02,489 - __main__ - DEBUG - در حال احراز هویت با Google...
+2025-05-12 23:09:02,492 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 23:09:02,492 - __main__ - INFO - در حال باز کردن اسپردشیت با ID: 1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs
+2025-05-12 23:09:02,527 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 23:09:02,528 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 23:09:03,118 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 23:09:03,121 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 23:09:03,878 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:04,201 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:04,203 - __main__ - INFO - ورق‌های موجود: ['websites', 'telegramBots', 'windowsApps', 'support', 'favorites', 'services']
+2025-05-12 23:09:04,204 - __main__ - DEBUG - در حال دسترسی به ورق 'websites'...
+2025-05-12 23:09:04,518 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:04,839 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:05,699 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:06,012 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:06,333 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:06,657 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:06,659 - __main__ - INFO - ورق 'websites' با موفقیت بارگذاری شد
+2025-05-12 23:09:06,660 - __main__ - DEBUG - در حال دسترسی به ورق 'telegramBots'...
+2025-05-12 23:09:07,017 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:07,357 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:07,695 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:08,002 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:08,848 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:09,166 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:09,166 - __main__ - INFO - ورق 'telegramBots' با موفقیت بارگذاری شد
+2025-05-12 23:09:09,167 - __main__ - DEBUG - در حال دسترسی به ورق 'windowsApps'...
+2025-05-12 23:09:09,477 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:09,778 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:10,291 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:10,808 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:11,137 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:11,452 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:11,453 - __main__ - INFO - ورق 'windowsApps' با موفقیت بارگذاری شد
+2025-05-12 23:09:11,454 - __main__ - DEBUG - در حال دسترسی به ورق 'support'...
+2025-05-12 23:09:11,772 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:12,086 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:12,392 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:12,703 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:13,016 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:13,325 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:13,325 - __main__ - INFO - ورق 'support' با موفقیت بارگذاری شد
+2025-05-12 23:09:13,327 - __main__ - DEBUG - در حال دسترسی به ورق 'favorites'...
+2025-05-12 23:09:13,665 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:13,973 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:14,374 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:14,745 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:15,168 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:15,583 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:15,584 - __main__ - INFO - ورق 'favorites' با موفقیت بارگذاری شد
+2025-05-12 23:09:15,584 - __main__ - DEBUG - در حال دسترسی به ورق 'services'...
+2025-05-12 23:09:15,959 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:16,359 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:16,703 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:17,012 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:17,322 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:17,622 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:17,624 - __main__ - INFO - ورق 'services' با موفقیت بارگذاری شد
+2025-05-12 23:09:17,625 - __main__ - INFO - 🔵 شروع فرآیند راه‌اندازی ربات...
+2025-05-12 23:09:17,625 - __main__ - INFO - 🔸 در حال اتصال به Google Sheets...
+2025-05-12 23:09:17,630 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-12 23:09:17,669 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-12 23:09:17,670 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-12 23:09:18,648 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-12 23:09:18,650 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-12 23:09:19,905 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:19,906 - __main__ - INFO - ✅ اتصال به Google Sheets با موفقیت برقرار شد
+2025-05-12 23:09:20,738 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-12 23:09:20,740 - __main__ - WARNING - ⚠️ شیت 'Websites' یافت نشد!
+2025-05-12 23:09:20,740 - __main__ - WARNING - ⚠️ شیت 'TelegramBots' یافت نشد!
+2025-05-12 23:09:20,741 - __main__ - WARNING - ⚠️ شیت 'WindowsApps' یافت نشد!
+2025-05-12 23:09:20,742 - __main__ - WARNING - ⚠️ شیت 'Support' یافت نشد!
+2025-05-12 23:09:20,743 - __main__ - WARNING - ⚠️ شیت 'Favorites' یافت نشد!
+2025-05-12 23:09:20,743 - __main__ - WARNING - ⚠️ شیت 'Services' یافت نشد!
+2025-05-12 23:09:20,744 - __main__ - INFO - 🔸 در حال بررسی توکن تلگرام...
+2025-05-12 23:09:20,745 - __main__ - CRITICAL - ❌ خطا در اتصال به تلگرام: Updater.__init__() missing 1 required positional argument: 'update_queue'
+2025-05-13 01:09:08,525 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-13 01:09:08,528 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-13 01:09:08,528 - __main__ - INFO - در حال باز کردن اسپردشیت...
+2025-05-13 01:09:08,564 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-13 01:09:08,566 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-13 01:09:09,302 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-13 01:09:09,304 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-13 01:09:10,369 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:10,694 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:10,695 - __main__ - INFO - ورق‌های موجود: ['websites', 'telegramBots', 'windowsApps', 'support', 'favorites', 'services']
+2025-05-13 01:09:10,696 - __main__ - DEBUG - در حال دسترسی به ورق 'websites'...
+2025-05-13 01:09:11,004 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:11,008 - __main__ - INFO - ✅ ورق 'websites' با موفقیت بارگذاری شد
+2025-05-13 01:09:11,009 - __main__ - DEBUG - در حال دسترسی به ورق 'telegramBots'...
+2025-05-13 01:09:11,357 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:11,362 - __main__ - INFO - ✅ ورق 'telegramBots' با موفقیت بارگذاری شد
+2025-05-13 01:09:11,362 - __main__ - DEBUG - در حال دسترسی به ورق 'windowsApps'...
+2025-05-13 01:09:11,683 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:11,684 - __main__ - INFO - ✅ ورق 'windowsApps' با موفقیت بارگذاری شد
+2025-05-13 01:09:11,684 - __main__ - DEBUG - در حال دسترسی به ورق 'support'...
+2025-05-13 01:09:12,528 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:12,528 - __main__ - INFO - ✅ ورق 'support' با موفقیت بارگذاری شد
+2025-05-13 01:09:12,528 - __main__ - DEBUG - در حال دسترسی به ورق 'favorites'...
+2025-05-13 01:09:12,881 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:12,882 - __main__ - INFO - ✅ ورق 'favorites' با موفقیت بارگذاری شد
+2025-05-13 01:09:12,882 - __main__ - DEBUG - در حال دسترسی به ورق 'services'...
+2025-05-13 01:09:13,210 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:09:13,211 - __main__ - INFO - ✅ ورق 'services' با موفقیت بارگذاری شد
+2025-05-13 01:09:13,891 - __main__ - INFO - ✅ ربات در حال راه‌اندازی...
+2025-05-13 01:09:13,891 - asyncio - DEBUG - Using proactor: IocpProactor
+2025-05-13 01:09:14,154 - telegram._bot - DEBUG - Entering: get_me
+2025-05-13 01:09:17,617 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getMe "HTTP/1.1 200 OK"
+2025-05-13 01:09:17,619 - telegram._bot - DEBUG - User(api_kwargs={'can_connect_to_business': False, 'has_main_web_app': False}, can_join_groups=True, can_read_all_group_messages=False, first_name='Radoteam', id=8108226042, is_bot=True, supports_inline_queries=False, username='Radoteam_bot')
+2025-05-13 01:09:17,619 - telegram._bot - DEBUG - Exiting: get_me
+2025-05-13 01:09:17,619 - telegram._bot - DEBUG - This Bot is already initialized.
+2025-05-13 01:09:17,621 - telegram.ext._updater - DEBUG - Updater started (polling)
+2025-05-13 01:09:17,621 - telegram.ext._updater - DEBUG - Start network loop retry bootstrap del webhook
+2025-05-13 01:09:17,621 - telegram.ext._updater - DEBUG - Deleting webhook
+2025-05-13 01:09:17,621 - telegram._bot - DEBUG - Entering: delete_webhook
+2025-05-13 01:09:17,762 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/deleteWebhook "HTTP/1.1 200 OK"
+2025-05-13 01:09:17,762 - telegram._bot - DEBUG - True
+2025-05-13 01:09:17,762 - telegram._bot - DEBUG - Exiting: delete_webhook
+2025-05-13 01:09:17,762 - telegram.ext._updater - DEBUG - Bootstrap done
+2025-05-13 01:09:17,765 - telegram.ext._updater - DEBUG - Waiting for polling to start
+2025-05-13 01:09:17,765 - telegram.ext._updater - DEBUG - Polling updates from Telegram started
+2025-05-13 01:09:17,766 - telegram.ext._updater - DEBUG - Start network loop retry getting Updates
+2025-05-13 01:09:17,766 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:09:17,767 - apscheduler.scheduler - INFO - Scheduler started
+2025-05-13 01:09:17,768 - telegram.ext._application - DEBUG - JobQueue started
+2025-05-13 01:09:17,768 - telegram.ext._application - INFO - Application started
+2025-05-13 01:09:17,770 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-05-13 01:09:17,770 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-05-13 01:09:28,318 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:09:28,319 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:09:28,319 - telegram._bot - DEBUG - ()
+2025-05-13 01:09:28,320 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:09:28,321 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:09:36,358 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:09:36,360 - telegram._bot - DEBUG - Getting updates: [972836560]
+2025-05-13 01:09:36,361 - telegram._bot - DEBUG - (Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=7, supergroup_chat_created=False, text='/start'), update_id=972836560),)
+2025-05-13 01:09:36,364 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:09:36,365 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:09:36,367 - telegram.ext._application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=7, supergroup_chat_created=False, text='/start'), update_id=972836560)
+2025-05-13 01:09:36,369 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state None
+2025-05-13 01:09:36,370 - telegram._bot - DEBUG - Entering: send_message
+2025-05-13 01:09:36,998 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/sendMessage "HTTP/1.1 200 OK"
+2025-05-13 01:09:37,000 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:09:37,001 - telegram._bot - DEBUG - Exiting: send_message
+2025-05-13 01:09:44,017 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:09:44,018 - telegram._bot - DEBUG - Getting updates: [972836561]
+2025-05-13 01:09:44,020 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='websites', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245361461219418', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836561),)
+2025-05-13 01:09:44,022 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:09:44,024 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:09:44,026 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='websites', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245361461219418', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836561)
+2025-05-13 01:09:44,030 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 0
+2025-05-13 01:09:44,031 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:09:44,823 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:09:44,825 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 44, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='website_shop', text='فروشگاهی'),), (InlineKeyboardButton(callback_data='website_company', text='شرکتی'),), (InlineKeyboardButton(callback_data='website_resume', text='رزومه'),), (InlineKeyboardButton(callback_data='website_gallery', text='گالری'),), (InlineKeyboardButton(callback_data='website_prices', text='هزینه\u200cهای طراحی وب\u200cسایت'),), (InlineKeyboardButton(callback_data='request_website', text='درخواست سایت'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='دسته\u200cبندی وب\u200cسایت\u200cها:')
+2025-05-13 01:09:44,826 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:09:51,373 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:09:51,375 - telegram._bot - DEBUG - Getting updates: [972836562]
+2025-05-13 01:09:51,376 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362066804855', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 44, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='website_shop', text='فروشگاهی'),), (InlineKeyboardButton(callback_data='website_company', text='شرکتی'),), (InlineKeyboardButton(callback_data='website_resume', text='رزومه'),), (InlineKeyboardButton(callback_data='website_gallery', text='گالری'),), (InlineKeyboardButton(callback_data='website_prices', text='هزینه\u200cهای طراحی وب\u200cسایت'),), (InlineKeyboardButton(callback_data='request_website', text='درخواست سایت'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='دسته\u200cبندی وب\u200cسایت\u200cها:')), update_id=972836562),)
+2025-05-13 01:09:51,378 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:09:51,379 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:09:51,381 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362066804855', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 44, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='website_shop', text='فروشگاهی'),), (InlineKeyboardButton(callback_data='website_company', text='شرکتی'),), (InlineKeyboardButton(callback_data='website_resume', text='رزومه'),), (InlineKeyboardButton(callback_data='website_gallery', text='گالری'),), (InlineKeyboardButton(callback_data='website_prices', text='هزینه\u200cهای طراحی وب\u200cسایت'),), (InlineKeyboardButton(callback_data='request_website', text='درخواست سایت'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='دسته\u200cبندی وب\u200cسایت\u200cها:')), update_id=972836562)
+2025-05-13 01:09:51,383 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 1
+2025-05-13 01:09:51,383 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:09:51,980 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:09:51,983 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 51, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:09:51,985 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:00,664 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:00,664 - telegram._bot - DEBUG - Getting updates: [972836563]
+2025-05-13 01:10:00,666 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='consultation', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245361807490518', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 51, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836563),)
+2025-05-13 01:10:00,667 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:00,667 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:00,670 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='consultation', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245361807490518', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 39, 51, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836563)
+2025-05-13 01:10:00,673 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 0
+2025-05-13 01:10:00,674 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:10:01,296 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:10:01,298 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 1, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')
+2025-05-13 01:10:01,299 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:10,830 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:10,831 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:10:10,832 - telegram._bot - DEBUG - ()
+2025-05-13 01:10:10,834 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:10,834 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:14,209 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:14,210 - telegram._bot - DEBUG - Getting updates: [972836564]
+2025-05-13 01:10:14,212 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362571477096', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 1, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')), update_id=972836564),)
+2025-05-13 01:10:14,214 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:14,215 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:14,223 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362571477096', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 1, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')), update_id=972836564)
+2025-05-13 01:10:14,224 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 14
+2025-05-13 01:10:14,224 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:10:14,844 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:10:14,846 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 14, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:10:14,848 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:17,248 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:17,249 - telegram._bot - DEBUG - Getting updates: [972836565]
+2025-05-13 01:10:17,250 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='about', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245359807699073', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 14, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836565),)
+2025-05-13 01:10:17,251 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:17,251 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:17,254 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='about', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245359807699073', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 14, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')), update_id=972836565)
+2025-05-13 01:10:17,256 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 0
+2025-05-13 01:10:17,258 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:10:17,443 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:10:17,445 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 17, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='consultation', text='درخواست مشاوره'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='👋 من نوید راد هستم، طراح و توسعه\u200cدهنده نرم\u200cافزار\n\n✅ 12 سال سابقه فعالیت در حوزه فناوری اطلاعات\n✅ 6 سال تجربه حرفه\u200cای در توسعه وب و نرم\u200cافزار\n✅ طراحی بیش از 50 پروژه موفق\n\n🛠 تخصص\u200cهای اصلی:\n- طراحی وب\u200cسایت\u200cهای اختصاصی\n- توسعه ربات\u200cهای تلگرام پیشرفته\n- ساخت نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی سیستم\u200cهای موجود\n\n📌 برای شروع همکاری یا دریافت مشاوره می\u200cتوانید از دکمه زیر استفاده کنید:')
+2025-05-13 01:10:17,445 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:26,243 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:26,245 - telegram._bot - DEBUG - Getting updates: [972836566]
+2025-05-13 01:10:26,246 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='consultation', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245363603279272', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 17, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='consultation', text='درخواست مشاوره'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='👋 من نوید راد هستم، طراح و توسعه\u200cدهنده نرم\u200cافزار\n\n✅ 12 سال سابقه فعالیت در حوزه فناوری اطلاعات\n✅ 6 سال تجربه حرفه\u200cای در توسعه وب و نرم\u200cافزار\n✅ طراحی بیش از 50 پروژه موفق\n\n🛠 تخصص\u200cهای اصلی:\n- طراحی وب\u200cسایت\u200cهای اختصاصی\n- توسعه ربات\u200cهای تلگرام پیشرفته\n- ساخت نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی سیستم\u200cهای موجود\n\n📌 برای شروع همکاری یا دریافت مشاوره می\u200cتوانید از دکمه زیر استفاده کنید:')), update_id=972836566),)
+2025-05-13 01:10:26,250 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:26,250 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:26,253 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='consultation', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245363603279272', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 17, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='consultation', text='درخواست مشاوره'),), (InlineKeyboardButton(callback_data='main_menu', text='منوی اصلی'),))), supergroup_chat_created=False, text='👋 من نوید راد هستم، طراح و توسعه\u200cدهنده نرم\u200cافزار\n\n✅ 12 سال سابقه فعالیت در حوزه فناوری اطلاعات\n✅ 6 سال تجربه حرفه\u200cای در توسعه وب و نرم\u200cافزار\n✅ طراحی بیش از 50 پروژه موفق\n\n🛠 تخصص\u200cهای اصلی:\n- طراحی وب\u200cسایت\u200cهای اختصاصی\n- توسعه ربات\u200cهای تلگرام پیشرفته\n- ساخت نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی سیستم\u200cهای موجود\n\n📌 برای شروع همکاری یا دریافت مشاوره می\u200cتوانید از دکمه زیر استفاده کنید:')), update_id=972836566)
+2025-05-13 01:10:26,255 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 12
+2025-05-13 01:10:26,255 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:10:26,932 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:10:26,934 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 26, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')
+2025-05-13 01:10:26,936 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:28,493 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:28,495 - telegram._bot - DEBUG - Getting updates: [972836567]
+2025-05-13 01:10:28,496 - telegram._bot - DEBUG - (Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362587090463', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 26, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')), update_id=972836567),)
+2025-05-13 01:10:28,498 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:28,499 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:10:28,501 - telegram.ext._application - DEBUG - Processing update Update(callback_query=CallbackQuery(chat_instance='3090468524784371891', data='main_menu', from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), id='1620245362587090463', message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 26, tzinfo=<UTC>), entities=(MessageEntity(length=6, offset=249, type=<MessageEntityType.MENTION>),), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='main_menu', text='انصراف'),),)), supergroup_chat_created=False, text='📞 برای مشاوره تخصصی در زمینه\u200cهای زیر آماده خدمت رسانی به شما هستیم:\n\n- طراحی وب\u200cسایت\n- طراحی ربات تلگرام\n- طراحی نرم\u200cافزارهای ویندوزی\n- پشتیبانی و بهینه\u200cسازی\n\nلطفاً توضیح دهید چه نوع مشاوره\u200cای نیاز دارید:\n\nشماره تماس ادمین: 09158708858\nآیدی ادمین: @Admin')), update_id=972836567)
+2025-05-13 01:10:28,504 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 14
+2025-05-13 01:10:28,504 - telegram._bot - DEBUG - Entering: edit_message_text
+2025-05-13 01:10:28,718 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/editMessageText "HTTP/1.1 200 OK"
+2025-05-13 01:10:28,720 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 21, 39, 36, tzinfo=<UTC>), delete_chat_photo=False, edit_date=datetime.datetime(2025, 5, 12, 21, 40, 28, tzinfo=<UTC>), from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=8, reply_markup=InlineKeyboardMarkup(inline_keyboard=((InlineKeyboardButton(callback_data='websites', text='وب سایت\u200cها'),), (InlineKeyboardButton(callback_data='telegram_bots', text='ربات\u200cهای تلگرام'),), (InlineKeyboardButton(callback_data='windows_apps', text='نرم\u200cافزارهای ویندوزی'),), (InlineKeyboardButton(callback_data='support', text='پشتیبانی برای شما'),), (InlineKeyboardButton(callback_data='consultation', text='درخواست و مشاوره'),), (InlineKeyboardButton(callback_data='about', text='درباره رادوتیم'),), (InlineKeyboardButton(callback_data='favorites', text='لیست علاقه\u200cمندی\u200cها'),), (InlineKeyboardButton(callback_data='services', text='خدمات متنوع'),))), supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:10:28,721 - telegram._bot - DEBUG - Exiting: edit_message_text
+2025-05-13 01:10:38,653 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:10:38,655 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:10:38,657 - telegram._bot - DEBUG - ()
+2025-05-13 01:10:38,657 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:10:38,658 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:32:52,941 - __main__ - INFO - در حال اتصال به Google Sheets...
+2025-05-13 01:32:52,947 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-13 01:32:52,947 - __main__ - INFO - در حال باز کردن اسپردشیت...
+2025-05-13 01:32:52,982 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-13 01:32:52,983 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-13 01:32:53,992 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2025-05-13 01:32:53,994 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): sheets.googleapis.com:443
+2025-05-13 01:32:55,343 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:55,672 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:55,673 - __main__ - INFO - ورق‌های موجود: ['websites', 'telegramBots', 'windowsApps', 'support', 'favorites', 'services']
+2025-05-13 01:32:55,674 - __main__ - DEBUG - در حال دسترسی به ورق 'websites'...
+2025-05-13 01:32:56,496 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:56,496 - __main__ - INFO - ✅ ورق 'websites' با موفقیت بارگذاری شد
+2025-05-13 01:32:56,498 - __main__ - DEBUG - در حال دسترسی به ورق 'telegramBots'...
+2025-05-13 01:32:56,811 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:56,812 - __main__ - INFO - ✅ ورق 'telegramBots' با موفقیت بارگذاری شد
+2025-05-13 01:32:56,813 - __main__ - DEBUG - در حال دسترسی به ورق 'windowsApps'...
+2025-05-13 01:32:57,151 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:57,153 - __main__ - INFO - ✅ ورق 'windowsApps' با موفقیت بارگذاری شد
+2025-05-13 01:32:57,153 - __main__ - DEBUG - در حال دسترسی به ورق 'support'...
+2025-05-13 01:32:57,511 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:57,512 - __main__ - INFO - ✅ ورق 'support' با موفقیت بارگذاری شد
+2025-05-13 01:32:57,512 - __main__ - DEBUG - در حال دسترسی به ورق 'favorites'...
+2025-05-13 01:32:57,852 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:57,853 - __main__ - INFO - ✅ ورق 'favorites' با موفقیت بارگذاری شد
+2025-05-13 01:32:57,853 - __main__ - DEBUG - در حال دسترسی به ورق 'services'...
+2025-05-13 01:32:58,173 - urllib3.connectionpool - DEBUG - https://sheets.googleapis.com:443 "GET /v4/spreadsheets/1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs?includeGridData=false HTTP/11" 200 None
+2025-05-13 01:32:58,174 - __main__ - INFO - ✅ ورق 'services' با موفقیت بارگذاری شد
+2025-05-13 01:32:58,854 - __main__ - INFO - ✅ ربات در حال راه‌اندازی...
+2025-05-13 01:32:58,854 - asyncio - DEBUG - Using proactor: IocpProactor
+2025-05-13 01:32:59,153 - telegram._bot - DEBUG - Entering: get_me
+2025-05-13 01:33:00,272 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getMe "HTTP/1.1 200 OK"
+2025-05-13 01:33:00,275 - telegram._bot - DEBUG - User(api_kwargs={'can_connect_to_business': False, 'has_main_web_app': False}, can_join_groups=True, can_read_all_group_messages=False, first_name='Radoteam', id=8108226042, is_bot=True, supports_inline_queries=False, username='Radoteam_bot')
+2025-05-13 01:33:00,275 - telegram._bot - DEBUG - Exiting: get_me
+2025-05-13 01:33:00,275 - telegram._bot - DEBUG - This Bot is already initialized.
+2025-05-13 01:33:00,275 - telegram.ext._updater - DEBUG - Updater started (polling)
+2025-05-13 01:33:00,275 - telegram.ext._updater - DEBUG - Start network loop retry bootstrap del webhook
+2025-05-13 01:33:00,275 - telegram.ext._updater - DEBUG - Deleting webhook
+2025-05-13 01:33:00,275 - telegram._bot - DEBUG - Entering: delete_webhook
+2025-05-13 01:33:00,432 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/deleteWebhook "HTTP/1.1 200 OK"
+2025-05-13 01:33:00,433 - telegram._bot - DEBUG - True
+2025-05-13 01:33:00,433 - telegram._bot - DEBUG - Exiting: delete_webhook
+2025-05-13 01:33:00,433 - telegram.ext._updater - DEBUG - Bootstrap done
+2025-05-13 01:33:00,433 - telegram.ext._updater - DEBUG - Waiting for polling to start
+2025-05-13 01:33:00,433 - telegram.ext._updater - DEBUG - Polling updates from Telegram started
+2025-05-13 01:33:00,433 - telegram.ext._updater - DEBUG - Start network loop retry getting Updates
+2025-05-13 01:33:00,433 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:00,433 - apscheduler.scheduler - INFO - Scheduler started
+2025-05-13 01:33:00,433 - telegram.ext._application - DEBUG - JobQueue started
+2025-05-13 01:33:00,433 - telegram.ext._application - INFO - Application started
+2025-05-13 01:33:00,433 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-05-13 01:33:00,433 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-05-13 01:33:09,447 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:09,447 - telegram._bot - DEBUG - Getting updates: [972836568]
+2025-05-13 01:33:09,447 - telegram._bot - DEBUG - (Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 9, tzinfo=<UTC>), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=9, supergroup_chat_created=False, text='/start'), update_id=972836568),)
+2025-05-13 01:33:09,451 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:09,451 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:09,451 - telegram.ext._application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 9, tzinfo=<UTC>), delete_chat_photo=False, entities=(MessageEntity(length=6, offset=0, type=<MessageEntityType.BOT_COMMAND>),), from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=9, supergroup_chat_created=False, text='/start'), update_id=972836568)
+2025-05-13 01:33:09,451 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state None
+2025-05-13 01:33:09,451 - telegram._bot - DEBUG - Entering: send_message
+2025-05-13 01:33:10,049 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/sendMessage "HTTP/1.1 200 OK"
+2025-05-13 01:33:10,050 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 9, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=10, supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:33:10,050 - telegram._bot - DEBUG - Exiting: send_message
+2025-05-13 01:33:19,613 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:19,614 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:33:19,614 - telegram._bot - DEBUG - ()
+2025-05-13 01:33:19,615 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:19,616 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:23,632 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:23,633 - telegram._bot - DEBUG - Getting updates: [972836569]
+2025-05-13 01:33:23,634 - telegram._bot - DEBUG - (Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 23, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=11, supergroup_chat_created=False, text='وب سایت\u200cها'), update_id=972836569),)
+2025-05-13 01:33:23,635 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:23,635 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:23,636 - telegram.ext._application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 23, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=11, supergroup_chat_created=False, text='وب سایت\u200cها'), update_id=972836569)
+2025-05-13 01:33:23,637 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 0
+2025-05-13 01:33:23,638 - telegram._bot - DEBUG - Entering: send_message
+2025-05-13 01:33:24,248 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/sendMessage "HTTP/1.1 200 OK"
+2025-05-13 01:33:24,249 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 24, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=12, supergroup_chat_created=False, text='دسته\u200cبندی وب\u200cسایت\u200cها:')
+2025-05-13 01:33:24,250 - telegram._bot - DEBUG - Exiting: send_message
+2025-05-13 01:33:33,781 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:33,783 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:33:33,783 - telegram._bot - DEBUG - ()
+2025-05-13 01:33:33,785 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:33,785 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:34,193 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:34,194 - telegram._bot - DEBUG - Getting updates: [972836570]
+2025-05-13 01:33:34,195 - telegram._bot - DEBUG - (Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 34, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=13, supergroup_chat_created=False, text='هزینه\u200cهای طراحی وب\u200cسایت'), update_id=972836570),)
+2025-05-13 01:33:34,196 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:34,197 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:34,198 - telegram.ext._application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 34, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=13, supergroup_chat_created=False, text='هزینه\u200cهای طراحی وب\u200cسایت'), update_id=972836570)
+2025-05-13 01:33:34,199 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 1
+2025-05-13 01:33:34,200 - telegram._bot - DEBUG - Entering: send_message
+2025-05-13 01:33:35,296 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/sendMessage "HTTP/1.1 200 OK"
+2025-05-13 01:33:35,297 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 35, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=14, supergroup_chat_created=False, text='💰 هزینه\u200cهای طراحی وب\u200cسایت:\n\n• وب\u200cسایت فروشگاهی: از 5 میلیون تومان\n• وب\u200cسایت شرکتی: از 3 میلیون تومان\n• وب\u200cسایت رزومه شخصی: از 2 میلیون تومان\n• وب\u200cسایت گالری: از 4 میلیون تومان\n\n⚠️ قیمت\u200cها بسته به امکانات مورد نظر ممکن است تغییر کند.')
+2025-05-13 01:33:35,299 - telegram._bot - DEBUG - Exiting: send_message
+2025-05-13 01:33:43,613 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:43,616 - telegram._bot - DEBUG - Getting updates: [972836571]
+2025-05-13 01:33:43,617 - telegram._bot - DEBUG - (Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 43, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=15, supergroup_chat_created=False, text='منوی اصلی'), update_id=972836571),)
+2025-05-13 01:33:43,618 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:43,620 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:33:43,624 - telegram.ext._application - DEBUG - Processing update Update(message=Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 43, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='NAνID️️️', id=377242770, is_bot=False, language_code='en', last_name='Rad', username='navid_rad'), group_chat_created=False, message_id=15, supergroup_chat_created=False, text='منوی اصلی'), update_id=972836571)
+2025-05-13 01:33:43,626 - telegram.ext._conversationhandler - DEBUG - Selecting conversation (377242770, 377242770) with state 1
+2025-05-13 01:33:43,627 - telegram._bot - DEBUG - Entering: send_message
+2025-05-13 01:33:44,252 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/sendMessage "HTTP/1.1 200 OK"
+2025-05-13 01:33:44,254 - telegram._bot - DEBUG - Message(channel_chat_created=False, chat=Chat(first_name='NAνID️️️', id=377242770, last_name='Rad', type=<ChatType.PRIVATE>, username='navid_rad'), date=datetime.datetime(2025, 5, 12, 22, 3, 44, tzinfo=<UTC>), delete_chat_photo=False, from_user=User(first_name='Radoteam', id=8108226042, is_bot=True, username='Radoteam_bot'), group_chat_created=False, message_id=16, supergroup_chat_created=False, text='سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\nاز منوی زیر انتخاب کنید:')
+2025-05-13 01:33:44,255 - telegram._bot - DEBUG - Exiting: send_message
+2025-05-13 01:33:53,786 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:33:53,787 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:33:53,787 - telegram._bot - DEBUG - ()
+2025-05-13 01:33:53,788 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:33:53,788 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:03,922 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:03,923 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:03,924 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:03,924 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:03,925 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:14,067 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:14,067 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:14,067 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:14,067 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:14,067 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:24,202 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:24,202 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:24,202 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:24,204 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:24,204 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:34,384 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:34,384 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:34,384 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:34,386 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:34,386 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:44,528 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:44,528 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:44,528 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:44,528 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:44,528 - telegram._bot - DEBUG - Entering: get_updates
+2025-05-13 01:34:54,676 - httpx._client - DEBUG - HTTP Request: POST https://api.telegram.org/bot8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU/getUpdates "HTTP/1.1 200 OK"
+2025-05-13 01:34:54,678 - telegram._bot - DEBUG - No new updates found.
+2025-05-13 01:34:54,678 - telegram._bot - DEBUG - ()
+2025-05-13 01:34:54,679 - telegram._bot - DEBUG - Exiting: get_updates
+2025-05-13 01:34:54,679 - telegram._bot - DEBUG - Entering: get_updates
