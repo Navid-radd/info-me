@@ -1,5 +1,6 @@
 import gspread
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputMediaPhoto
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputMediaPhoto,InlineKeyboardButton,InlineKeyboardMarkup
+
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -38,9 +39,32 @@ load_dotenv("config.env")
     FAVORITES_MENU,
     CONSULTATION,
     SERVICES_MENU,
-    REQUEST_WEBSITE
-) = range(17)
+    REQUEST_WEBSITE,
+    COPY_NUMBER  # <-- این خط را اضافه کنید
+) = range(18)
 
+
+
+# متن دکمه‌های منو
+BTN_WEBSITES = "وب سایت‌ها 🌐"
+BTN_TELEGRAM_BOTS = "ربات‌های تلگرام 🤖"
+BTN_WINDOWS_APPS = "نرم‌افزارهای ویندوزی 💻"
+BTN_SUPPORT = "پشتیبانی برای شما 🛠"
+BTN_CONSULTATION = "درخواست و مشاوره 📩"
+BTN_ABOUT = "درباره رادوتیم ℹ️"
+BTN_FAVORITES = "لیست علاقه‌مندی‌ها ⭐"
+BTN_SERVICES = "خدمات متنوع 🧰"
+
+BTN_ECOMMERCE = "فروشگاهی 🛒"
+BTN_CORPORATE = "شرکتی 🏢"
+BTN_RESUME = "رزومه 📄"
+BTN_GALLERY = "گالری 🖼"
+BTN_WEBSITE_PRICES = "هزینه‌های طراحی وب‌سایت 💰"
+BTN_REQUEST_WEBSITE = "درخواست سایت 📩"
+BTN_BACK_TO_MAIN = "منوی اصلی 🔙"
+
+BTN_CONTACT = "📞 تماس با ما"
+CONTACT_NUMBER = "09158708858"
 # تنظیمات Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", 
         "https://www.googleapis.com/auth/drive"]
@@ -132,70 +156,152 @@ def remove_from_favorites(user_id, item_type, item_id):
     return False
 
 def send_to_admin(context: CallbackContext, message):
-    context.bot.send_message(
-        chat_id=1810708143,
-        text=message
-    )
+    try:
+        context.bot.send_message(
+            chat_id=1810708143,  # اینجا UID ادمین را مستقیماً قرار دادیم
+            text=message
+        )
+        logger.info("پیام با موفقیت به ادمین ارسال شد.")
+    except Exception as e:
+        logger.error(f"خطا در ارسال پیام به ادمین: {str(e)}")
 
 # -------------------- دستور /start --------------------
 async def start(update: Update, context: CallbackContext):
+    user = update.message.from_user if update.message else update.callback_query.from_user
+    contact_btn = KeyboardButton(BTN_CONTACT)
+    
     keyboard = [
-        ["وب سایت‌ها"],
-        ["ربات‌های تلگرام"],
-        ["نرم‌افزارهای ویندوزی"],
-        ["پشتیبانی برای شما"],
-        ["درخواست و مشاوره"],
-        ["درباره رادوتیم"],
-        ["لیست علاقه‌مندی‌ها"],
-        ["خدمات متنوع"]
+        [BTN_WEBSITES, BTN_TELEGRAM_BOTS],
+        [BTN_WINDOWS_APPS, BTN_SUPPORT],
+        [BTN_CONSULTATION, BTN_ABOUT],
+        [BTN_FAVORITES, BTN_SERVICES],
+        [contact_btn]  # اضافه کردن دکمه تماس
     ]
+    
+    welcome_text = f"""
+✨ *سلام {user.first_name} عزیز!* ✨
+
+⚡️ *به جمع مشتریان رادو تیم خوش آمدید!*
+
+🚀 *خدمات ما:*
+✅ طراحی وبسایت حرفه‌ای
+✅ ساخت ربات تلگرام پیشرفته
+✅ توسعه نرم‌افزارهای ویندوزی
+✅ پشتیبانی و بهینه‌سازی
+
+
+📌 *امکانات ربات:*
+• مشاهده نمونه کارها
+• دریافت مشاوره رایگان
+• استعلام قیمت
+• ارتباط مستقیم با تیم پشتیبانی
+
+👇 برای شروع یکی از گزینه‌های زیر رو انتخاب کن:
+"""
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
-    if update.message:
-        await update.message.reply_text(
-            "سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\n"
-            "از منوی زیر انتخاب کنید:",
-            reply_markup=reply_markup
-        )
-    else:
-        await update.callback_query.message.reply_text(
-            "سلام! به ربات نمونه کارهای نوید راد خوش آمدید. 🚀\n\n"
-            "از منوی زیر انتخاب کنید:",
-            reply_markup=reply_markup
-        )
+    target = update.message if update.message else update.callback_query.message
+    await target.reply_text(
+        welcome_text,
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
+    )
     
     return MAIN_MENU
 
+
+
+async def handle_contact_request(update: Update, context: CallbackContext):
+    contact_number = "09158708858"
+    whatsapp_url = f"https://wa.me/{contact_number}"
+    
+    # ایجاد دکمه اینلاین برای واتساپ
+    whatsapp_btn = InlineKeyboardButton(
+        text="💬 تماس از طریق واتساپ",
+        url=whatsapp_url
+    )
+    
+    # ایجاد کیبورد اینلاین
+    inline_keyboard = InlineKeyboardMarkup([[whatsapp_btn]])
+    
+    # ایجاد کیبورد معمولی برای بازگشت
+    reply_keyboard = ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    
+    # ارسال پیام با هر دو کیبورد
+    await update.message.reply_text(
+        f"📞 برای تماس با پشتیبانی:\n\n"
+        f"شماره: <code>{contact_number}</code>\n\n"
+        "👉 روش‌های تماس:\n"
+        f"- کلیک روی دکمه واتساپ زیر\n"
+        f"- یا شماره را کپی کنید: <code>{contact_number}</code>\n"
+        f"- یا مستقیماً شماره را بگیرید",
+        parse_mode='HTML',
+        reply_markup=inline_keyboard
+    )
+    
+    await update.message.reply_text(
+        "برای بازگشت به منوی اصلی از دکمه زیر استفاده کنید:",
+        reply_markup=reply_keyboard
+    )
+    
+    return COPY_NUMBER
+
+async def copy_number_handler(update: Update, context: CallbackContext):
+    contact_number = "09158708858"
+    
+    await update.message.reply_text(
+        f"شماره <code>{contact_number}</code> آماده کپی است!\n\n"
+        "حالا می‌توانید:\n"
+        "1. در برنامه تلفن خود شماره را پیست کنید\n"
+        "2. دکمه تماس را بزنید\n\n"
+        "برای بازگشت به منوی اصلی از دکمه زیر استفاده کنید:",
+        parse_mode='HTML',
+        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    )
+    
+    return MAIN_MENU
+
+
+
 # -------------------- بخش وب‌سایت‌ها --------------------
 async def websites_menu(update: Update, context: CallbackContext):
+    contact_btn = BTN_CONTACT 
     keyboard = [
-        ["فروشگاهی"],
-        ["شرکتی"],
-        ["رزومه"],
-        ["گالری"],
-        ["هزینه‌های طراحی وب‌سایت"],
-        ["درخواست سایت"],
-        ["منوی اصلی"]
+        [BTN_ECOMMERCE, BTN_CORPORATE],
+        [BTN_RESUME, BTN_GALLERY],
+        [BTN_WEBSITE_PRICES],
+        [BTN_REQUEST_WEBSITE, BTN_BACK_TO_MAIN],
+        [contact_btn]  # اضافه کردن دکمه تماس
     ]
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
-    if update.message:
-        await update.message.reply_text(
-            "دسته‌بندی وب‌سایت‌ها:",
-            reply_markup=reply_markup
-        )
-    else:
-        await update.callback_query.message.reply_text(
-            "دسته‌بندی وب‌سایت‌ها:",
-            reply_markup=reply_markup
-        )
+    target = update.message if update.message else update.callback_query.message
+    await target.reply_text(
+        "دسته‌بندی وب‌سایت‌ها:",
+        reply_markup=reply_markup
+    )
     
     return WEBSITES_MENU
 
 async def website_category(update: Update, context: CallbackContext):
-    category = update.message.text
+    user_input = update.message.text
+    
+    # ایجاد نگاشت بین متن دکمه‌ها و دسته‌بندی‌های واقعی
+    category_mapping = {
+        BTN_ECOMMERCE: "فروشگاهی",
+        BTN_CORPORATE: "شرکتی",
+        BTN_RESUME: "رزومه",
+        BTN_GALLERY: "گالری"
+    }
+    
+    # پیدا کردن دسته‌بندی متناظر
+    category = category_mapping.get(user_input)
+    
+    if not category:
+        await update.message.reply_text("دسته‌بندی نامعتبر!")
+        return WEBSITES_MENU
     
     context.user_data['website_category'] = category
     
@@ -246,8 +352,7 @@ async def show_website_item(update: Update, context: CallbackContext):
         keyboard.append(nav_buttons)
     
     keyboard.extend([
-        ["ارسال به ادمین"],
-        ["منوی وب‌سایت‌ها"],
+        ["ارسال به ادمین", "منوی وب‌سایت‌ها"],
         ["منوی اصلی"]
     ])
     
@@ -321,20 +426,27 @@ async def send_website_to_admin(update: Update, context: CallbackContext):
 
 async def show_website_prices(update: Update, context: CallbackContext):
     prices = """
-💰 هزینه‌های طراحی وب‌سایت:
+🔧 *اجزای تشکیل‌دهنده قیمت:*
 
-• وب‌سایت فروشگاهی: از 5 میلیون تومان
-• وب‌سایت شرکتی: از 3 میلیون تومان
-• وب‌سایت رزومه شخصی: از 2 میلیون تومان
-• وب‌سایت گالری: از 4 میلیون تومان
+🖥 هاست و دامنه (سالانه):
+🛡 امنیت پیشرفته:
+🧩 افزونه‌های اختصاصی:
+💻 طراحی و کدنویسی:
+📝 خدمات اضافی: سئو پایه - تولید و درج محتوای تخصصی - طراحی لوگو حرفه‌ای
 
-⚠️ قیمت‌ها بسته به امکانات مورد نظر ممکن است تغییر کند.
+💡 *نکات مهم:*
+• مدت زمان تحویل پروژه: ۱۰ تا ۲۰ روز کاری
+• ۶ ماه پشتیبانی رایگان شامل تمامی پکیج‌ها
+• طراحی ریسپانسیو و سازگار با تمام دستگاه‌ها
+
+💬 برای دریافت مشاوره رایگان و قیمت دقیق، همین حالا دکمه «درخواست مشاوره» را انتخاب کنید!
+
 """
     
     keyboard = [
-        ["درخواست سایت"],
+        [BTN_REQUEST_WEBSITE],
         ["منوی وب‌سایت‌ها"],
-        ["منوی اصلی"]
+        [BTN_BACK_TO_MAIN]
     ]
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
@@ -356,8 +468,9 @@ async def request_website(update: Update, context: CallbackContext):
     await update.message.reply_text(
         "📝 لطفاً توضیح دهید چه نوع وب‌سایتی نیاز دارید:\n\n"
         "مثال: یک وب‌سایت فروشگاهی با امکانات پرداخت آنلاین و پنل مدیریت محصولات\n\n"
-        "شماره تماس ادمین: 09158708858\n"
-        "آیدی ادمین: @Admin",
+        "📝لطف پیام خود را ارسال کنید تا در کمترین زمان با شما ارتباط  بگیریم:\n\n"
+        "شماره تماس ادمین: 09158708858\n",
+        
         reply_markup=reply_markup
     )
     
@@ -401,8 +514,7 @@ async def save_website_request(update: Update, context: CallbackContext):
 # -------------------- بخش ربات‌های تلگرام --------------------
 async def telegram_bots_menu(update: Update, context: CallbackContext):
     keyboard = [
-        ["درخواست ربات"],
-        ["ادامه مطلب"],
+        ["درخواست ربات", "ادامه مطلب"],
         ["منوی اصلی"]
     ]
     
@@ -513,8 +625,8 @@ async def request_bot(update: Update, context: CallbackContext):
     await update.message.reply_text(
         "📝 لطفاً توضیح دهید چه نوع ربات تلگرامی نیاز دارید:\n\n"
         "مثال: یک ربات فروشگاهی با امکان پرداخت آنلاین، مدیریت محصولات و گزارش‌گیری\n\n"
-        "شماره تماس ادمین: 09158708858\n"
-        "آیدی ادمین: @Admin",
+        "شماره تماس ادمین: 09158708858\n",
+        
         reply_markup=reply_markup
     )
     
@@ -558,8 +670,7 @@ async def save_bot_request(update: Update, context: CallbackContext):
 # -------------------- بخش نرم‌افزارهای ویندوزی --------------------
 async def windows_apps_menu(update: Update, context: CallbackContext):
     keyboard = [
-        ["درخواست نرم‌افزار"],
-        ["نمونه کارها"],
+        ["درخواست نرم‌افزار", "نمونه کارها"],
         ["منوی اصلی"]
     ]
     
@@ -665,8 +776,8 @@ async def request_app(update: Update, context: CallbackContext):
     await update.message.reply_text(
         "📝 لطفاً توضیح دهید چه نوع نرم‌افزار ویندوزی نیاز دارید:\n\n"
         "مثال: یک نرم‌افزار حسابداری با امکان صدور فاکتور، گزارش‌گیری و پشتیبان‌گیری\n\n"
-        "شماره تماس ادمین: 09158708858\n"
-        "آیدی ادمین: @Admin",
+        "شماره تماس ادمین: 09158708858\n",
+        
         reply_markup=reply_markup
     )
     
@@ -739,8 +850,8 @@ async def request_support(update: Update, context: CallbackContext):
     await update.message.reply_text(
         "📝 لطفاً توضیح دهید چه نوع پشتیبانی یا خدمتی نیاز دارید:\n\n"
         "مثال: نیاز به بهینه‌سازی سرعت یک سایت وردپرس دارم\n\n"
-        "شماره تماس ادمین: 09158708858\n"
-        "آیدی ادمین: @Admin",
+        "شماره تماس ادمین: 09158708858\n",
+        
         reply_markup=reply_markup
     )
     
@@ -783,7 +894,9 @@ async def save_support_request(update: Update, context: CallbackContext):
 
 # -------------------- بخش مشاوره --------------------
 async def consultation_menu(update: Update, context: CallbackContext):
+    contact_button = KeyboardButton("📞 تماس با ما", request_contact=True)
     keyboard = [
+        [contact_button],
         ["انصراف"]
     ]
     
@@ -796,38 +909,56 @@ async def consultation_menu(update: Update, context: CallbackContext):
         "- طراحی نرم‌افزارهای ویندوزی\n"
         "- پشتیبانی و بهینه‌سازی\n\n"
         "لطفاً توضیح دهید چه نوع مشاوره‌ای نیاز دارید:\n\n"
-        "شماره تماس ادمین: 09158708858\n"
-        "آیدی ادمین: @Admin",
+        "پیام مورد نظر را تایپ کرده و ارسال کنید تا به زودی با شما ارتباط بگیرم.",
+        
         reply_markup=reply_markup
     )
     
     return CONSULTATION
-
+async def handle_contact(update: Update, context: CallbackContext):
+    contact = update.message.contact
+    phone_number = contact.phone_number
+    
+    # ذخیره شماره تماس کاربر
+    context.user_data['user_phone'] = phone_number
+    
+    await update.message.reply_text(
+        f"شماره تماس شما ({phone_number}) دریافت شد.\n\n"
+        "لطفاً توضیحات درخواست مشاوره خود را وارد کنید:"
+    )
+    
+    return CONSULTATION
 async def save_consultation(update: Update, context: CallbackContext):
     user_text = update.message.text
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
+    phone_number = context.user_data.get('user_phone', 'ثبت نشده')
     
+    # ذخیره در Google Sheets
     db["support"].append_row([
         user_id,
         username,
         "درخواست مشاوره",
         user_text,
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending"
+        "Pending",
+        phone_number
     ])
     
+    # ارسال به ادمین (UID: 1810708143)
     admin_message = (
         f"درخواست جدید مشاوره:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n\n"
+        f"کاربر: {username} (آیدی: {user_id})\n"
+        f"شماره تماس: {phone_number}\n\n"
         f"توضیحات:\n{user_text}"
     )
-    send_to_admin(context, admin_message)
+    await context.bot.send_message(
+        chat_id=1810708143,
+        text=admin_message
+    )
     
-    keyboard = [
-        ["منوی اصلی"]
-    ]
-    
+    # پاسخ به کاربر
+    keyboard = [["منوی اصلی"]]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
     await update.message.reply_text(
@@ -837,7 +968,15 @@ async def save_consultation(update: Update, context: CallbackContext):
     )
     
     return MAIN_MENU
-
+async def save_and_notify(context: CallbackContext, sheet_name: str, data: list, message: str):
+    # ذخیره در Google Sheets
+    db[sheet_name].append_row(data)
+    
+    # ارسال به ادمین
+    await context.bot.send_message(
+        chat_id=1810708143,
+        text=message
+    )
 # -------------------- بخش درباره من --------------------
 async def about_menu(update: Update, context: CallbackContext):
     keyboard = [
@@ -851,7 +990,7 @@ async def about_menu(update: Update, context: CallbackContext):
         "👋 من نوید راد هستم، طراح و توسعه‌دهنده نرم‌افزار\n\n"
         "✅ 12 سال سابقه فعالیت در حوزه فناوری اطلاعات\n"
         "✅ 6 سال تجربه حرفه‌ای در توسعه وب و نرم‌افزار\n"
-        "✅ طراحی بیش از 50 پروژه موفق\n\n"
+        "✅ طراحی بیش از 150 پروژه موفق\n\n"
         "🛠 تخصص‌های اصلی:\n"
         "- طراحی وب‌سایت‌های اختصاصی\n"
         "- توسعه ربات‌های تلگرام پیشرفته\n"
@@ -1050,30 +1189,36 @@ async def services_menu(update: Update, context: CallbackContext):
 # -------------------- راه‌اندازی ربات --------------------
 def main():
     try:
-        # ساخت application جدید
         application = ApplicationBuilder().token("8108226042:AAGUY9msPTe_YTBQ6omHGmeNQbNp1ULo1bU").build()
         
-        # اضافه کردن handlerها
         conv_handler = ConversationHandler(
             entry_points=[CommandHandler('start', start)],
             states={
                 MAIN_MENU: [
-                    MessageHandler(filters.Text("وب سایت‌ها"), websites_menu),
-                    MessageHandler(filters.Text("ربات‌های تلگرام"), telegram_bots_menu),
-                    MessageHandler(filters.Text("نرم‌افزارهای ویندوزی"), windows_apps_menu),
-                    MessageHandler(filters.Text("پشتیبانی برای شما"), support_menu),
-                    MessageHandler(filters.Text("درخواست و مشاوره"), consultation_menu),
-                    MessageHandler(filters.Text("درباره رادوتیم"), about_menu),
-                    MessageHandler(filters.Text("لیست علاقه‌مندی‌ها"), favorites_menu),
-                    MessageHandler(filters.Text("خدمات متنوع"), services_menu),
+                    MessageHandler(filters.Text(BTN_WEBSITES), websites_menu),
+                    MessageHandler(filters.Text(BTN_TELEGRAM_BOTS), telegram_bots_menu),
+                    MessageHandler(filters.Text(BTN_WINDOWS_APPS), windows_apps_menu),
+                    MessageHandler(filters.Text(BTN_SUPPORT), support_menu),
+                    MessageHandler(filters.Text(BTN_CONSULTATION), consultation_menu),
+                    MessageHandler(filters.Text(BTN_ABOUT), about_menu),
+                    MessageHandler(filters.Text(BTN_FAVORITES), favorites_menu),
+                    MessageHandler(filters.Text(BTN_SERVICES), services_menu),
+                    MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),
                 ],
+                COPY_NUMBER: [
+                    MessageHandler(filters.Text("📱 کپی شماره پشتیبانی"), copy_number_handler),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
+                ],
+
                 WEBSITES_MENU: [
-                    MessageHandler(filters.Text("فروشگاهی") | filters.Text("شرکتی") | 
-                                 filters.Text("رزومه") | filters.Text("گالری"), website_category),
-                    MessageHandler(filters.Text("هزینه‌های طراحی وب‌سایت"), show_website_prices),
-                    MessageHandler(filters.Text("درخواست سایت"), request_website),
-                    MessageHandler(filters.Text("منوی اصلی"), start),
-                ],
+                    MessageHandler(filters.Text(BTN_ECOMMERCE) | 
+                                filters.Text(BTN_CORPORATE) | 
+                                filters.Text(BTN_RESUME) | 
+                                filters.Text(BTN_GALLERY), website_category),
+                    MessageHandler(filters.Text(BTN_WEBSITE_PRICES), show_website_prices),
+                    MessageHandler(filters.Text(BTN_REQUEST_WEBSITE), request_website),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
+                        ],
                 WEBSITE_CATEGORY: [
                     MessageHandler(filters.Text("⭐ افزودن به علاقه‌مندی‌ها") | 
                                  filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_website_favorite),
@@ -1139,6 +1284,7 @@ def main():
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 CONSULTATION: [
+                    MessageHandler(filters.CONTACT, handle_contact),
                     MessageHandler(filters.TEXT & ~filters.Text("انصراف"), save_consultation),
                     MessageHandler(filters.Text("انصراف"), start),
                 ],
@@ -1148,6 +1294,7 @@ def main():
                 ],
             },
             fallbacks=[CommandHandler('start', start)],
+            allow_reentry=True 
         )
         
         application.add_handler(conv_handler)
@@ -1161,3 +1308,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    
+
+# -------------------- پایان کد --------------------
+
+
+# لطفا از کاربر بخواهید شماره خود به اشتراک بزاره 
