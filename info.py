@@ -213,31 +213,16 @@ async def start(update: Update, context: CallbackContext):
 
 
 async def handle_contact_request(update: Update, context: CallbackContext):
-    contact_number = "09158708858"
-    whatsapp_url = f"https://wa.me/{contact_number}"
+    contact_keyboard = generate_contact_keyboard()
     
-    # ایجاد دکمه اینلاین برای واتساپ
-    whatsapp_btn = InlineKeyboardButton(
-        text="💬 تماس از طریق واتساپ",
-        url=whatsapp_url
-    )
-    
-    # ایجاد کیبورد اینلاین
-    inline_keyboard = InlineKeyboardMarkup([[whatsapp_btn]])
-    
-    # ایجاد کیبورد معمولی برای بازگشت
     reply_keyboard = ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
     
-    # ارسال پیام با هر دو کیبورد
     await update.message.reply_text(
         f"📞 برای تماس با پشتیبانی:\n\n"
-        f"شماره: <code>{contact_number}</code>\n\n"
-        "👉 روش‌های تماس:\n"
-        f"- کلیک روی دکمه واتساپ زیر\n"
-        f"- یا شماره را کپی کنید: <code>{contact_number}</code>\n"
-        f"- یا مستقیماً شماره را بگیرید",
+        f"شماره: <code>{CONTACT_NUMBER}</code>\n\n"
+        "👉 روش‌های تماس:",
         parse_mode='HTML',
-        reply_markup=inline_keyboard
+        reply_markup=contact_keyboard
     )
     
     await update.message.reply_text(
@@ -246,6 +231,19 @@ async def handle_contact_request(update: Update, context: CallbackContext):
     )
     
     return COPY_NUMBER
+
+async def copy_number_handler(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        f"شماره <code>{CONTACT_NUMBER}</code> آماده کپی است!\n\n"
+        "حالا می‌توانید:\n"
+        "1. در برنامه تلفن خود شماره را پیست کنید\n"
+        "2. دکمه تماس را بزنید\n\n"
+        "برای بازگشت به منوی اصلی از دکمه زیر استفاده کنید:",
+        parse_mode='HTML',
+        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    )
+    
+    return MAIN_MENU
 
 async def copy_number_handler(update: Update, context: CallbackContext):
     contact_number = "09158708858"
@@ -266,21 +264,21 @@ async def copy_number_handler(update: Update, context: CallbackContext):
 
 # -------------------- بخش وب‌سایت‌ها --------------------
 async def websites_menu(update: Update, context: CallbackContext):
-    contact_btn = BTN_CONTACT 
     keyboard = [
         [BTN_ECOMMERCE, BTN_CORPORATE],
         [BTN_RESUME, BTN_GALLERY],
         [BTN_WEBSITE_PRICES],
         [BTN_REQUEST_WEBSITE, BTN_BACK_TO_MAIN],
-        [contact_btn]  # اضافه کردن دکمه تماس
+        [BTN_CONTACT]  # دکمه تماس به صورت جداگانه
     ]
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
-    target = update.message if update.message else update.callback_query.message
-    await target.reply_text(
-        "دسته‌بندی وب‌سایت‌ها:",
-        reply_markup=reply_markup
+    await update.message.reply_text(
+        "🌐 *منوی خدمات طراحی وب‌سایت* 🌐\n\n"
+        "لطفاً یکی از دسته‌بندی‌های زیر را انتخاب کنید:",
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
     return WEBSITES_MENU
@@ -426,26 +424,34 @@ async def send_website_to_admin(update: Update, context: CallbackContext):
 
 async def show_website_prices(update: Update, context: CallbackContext):
     prices = """
-🔧 *اجزای تشکیل‌دهنده قیمت:*
+🔧 *جدول هزینه‌های طراحی وب‌سایت* 🔧
 
-🖥 هاست و دامنه (سالانه):
-🛡 امنیت پیشرفته:
-🧩 افزونه‌های اختصاصی:
-💻 طراحی و کدنویسی:
-📝 خدمات اضافی: سئو پایه - تولید و درج محتوای تخصصی - طراحی لوگو حرفه‌ای
+🖥 **پکیج پایه** (ویترینی):
+• طراحی ریسپانسیو
+• 5 صفحه اصلی
+• سئو پایه
+💰 هزینه: 5,000,000 تومان
+
+🛒 **پکیج فروشگاهی**:
+• تمامی امکانات پایه
+• سیستم فروش آنلاین
+• درگاه پرداخت
+💰 هزینه: 15,000,000 تومان
+
+🏢 **پکیج شرکتی**:
+• طراحی اختصاصی
+• پنل مدیریت پیشرفته
+• پشتیبانی 6 ماهه
+💰 هزینه: 10,000,000 تومان
 
 💡 *نکات مهم:*
-• مدت زمان تحویل پروژه: ۱۰ تا ۲۰ روز کاری
-• ۶ ماه پشتیبانی رایگان شامل تمامی پکیج‌ها
-• طراحی ریسپانسیو و سازگار با تمام دستگاه‌ها
-
-💬 برای دریافت مشاوره رایگان و قیمت دقیق، همین حالا دکمه «درخواست مشاوره» را انتخاب کنید!
-
+• قیمت‌ها تقریبی و بسته به نیازها متفاوت است
+• امکان پرداخت اقساطی وجود دارد
 """
     
     keyboard = [
         [BTN_REQUEST_WEBSITE],
-        ["منوی وب‌سایت‌ها"],
+        ["منوی وب‌سایت‌ها"],  # مطمئن شوید متن دقیقاً همین است
         [BTN_BACK_TO_MAIN]
     ]
     
@@ -453,25 +459,38 @@ async def show_website_prices(update: Update, context: CallbackContext):
     
     await update.message.reply_text(
         prices,
-        reply_markup=reply_markup
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
-    return WEBSITES_MENU
+    return WEBSITES_MENU  # ای
 
 async def request_website(update: Update, context: CallbackContext):
-    keyboard = [
-        ["انصراف"]
-    ]
+    contact_keyboard = generate_contact_keyboard()
     
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup([["انصراف"]], resize_keyboard=True)
+    
+    message_text = (
+        "🌐 *درخواست طراحی وبسایت اختصاصی* 🌐\n\n"
+        "📝 لطفاً نیازهای خود را با جزئیات شرح دهید:\n\n"
+        "✅ *مثال:*\n"
+        "یک وبسایت فروشگاهی با:\n"
+        "- طراحی مدرن و ریسپانسیو\n"
+        "- درگاه پرداخت آنلاین\n"
+        "- پنل مدیریت محتوا\n"
+        "- سئو حرفه‌ای\n\n"
+        f"📞 پشتیبانی: `{CONTACT_NUMBER}`"
+    )
     
     await update.message.reply_text(
-        "📝 لطفاً توضیح دهید چه نوع وب‌سایتی نیاز دارید:\n\n"
-        "مثال: یک وب‌سایت فروشگاهی با امکانات پرداخت آنلاین و پنل مدیریت محصولات\n\n"
-        "📝لطف پیام خود را ارسال کنید تا در کمترین زمان با شما ارتباط  بگیریم:\n\n"
-        "شماره تماس ادمین: 09158708858\n",
-        
-        reply_markup=reply_markup
+        message_text,
+        reply_markup=contact_keyboard,
+        parse_mode='Markdown'
+    )
+    
+    await update.message.reply_text(
+        "می‌توانید پیام خود را تایپ کنید یا از دکمه‌های بالا برای ارتباط سریع استفاده نمایید:",
+        reply_markup=reply_keyboard
     )
     
     return REQUEST_WEBSITE
@@ -521,14 +540,25 @@ async def telegram_bots_menu(update: Update, context: CallbackContext):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
     await update.message.reply_text(
-        "🤖 ربات‌های تلگرام می‌توانند کسب‌وکار شما را متحول کنند!\n\n"
-        "نمونه کارهای ما:\n"
-        "1. ربات فروشگاهی\n"
-        "2. ربات پشتیبانی\n"
-        "3. ربات نظرسنجی\n"
-        "4. ربات مدیریت محتوا\n\n"
-        "برای مشاهده جزئیات هر ربات، گزینه «ادامه مطلب» را انتخاب کنید.",
-        reply_markup=reply_markup
+        "🤖 *ربات‌های هوشمند تلگرامی* - موتور محرک کسب‌وکار دیجیتال شما 🚀\n\n"
+        "✨ *با ربات‌های اختصاصی ما، کسب‌وکار خود را متحول کنید!* ✨\n\n"
+        "✅ *دسته‌بندی ربات‌های ما:*\n"
+        "▫️ *ربات فروشگاهی* - فروش 24 ساعته با پرداخت آنلاین\n"
+        "▫️ *ربات پشتیبانی* - پاسخگویی خودکار به مشتریان\n"
+        "▫️ *ربات نظرسنجی* - جمع‌آوری داده‌های بازار\n"
+        "▫️ *ربات مدیریت محتوا* - انتشار خودکار محتوا\n\n"
+        "🛠 *ویژگی‌های کلیدی ربات‌های ما:*\n"
+        "• طراحی UI/UX حرفه‌ای\n"
+        "• امنیت بالا و پایدار\n"
+        "• پنل مدیریت پیشرفته\n"
+        "• قابلیت یکپارچه‌سازی با سیستم‌های شما\n\n"
+        "📌 *مزایای ربات‌های تلگرامی:*\n"
+        "📈 افزایش فروش و تعامل با مشتریان\n"
+        "⏱ کاهش هزینه‌های عملیاتی\n"
+        "🌍 دسترسی جهانی بدون محدودیت\n\n"
+        "👇 برای مشاهده نمونه کارها و جزئیات فنی، گزینه «ادامه مطلب» را انتخاب کنید:",
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
     return TELEGRAM_BOTS_MENU
@@ -616,18 +646,31 @@ async def toggle_bot_favorite(update: Update, context: CallbackContext):
     return await show_bot_details(update, context)
 
 async def request_bot(update: Update, context: CallbackContext):
-    keyboard = [
-        ["انصراف"]
-    ]
+    contact_keyboard = generate_contact_keyboard()
     
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup([["انصراف"]], resize_keyboard=True)
+    
+    message_text = (
+        "🤖 *درخواست ربات تلگرام اختصاصی* 🤖\n\n"
+        "📝 لطفاً نیازهای خود را با جزئیات شرح دهید:\n\n"
+        "✅ *مثال:*\n"
+        "یک ربات فروشگاهی با قابلیت‌های:\n"
+        "- پرداخت آنلاین\n"
+        "- مدیریت محصولات\n"
+        "- پنل مدیریت\n"
+        "- گزارش‌گیری\n\n"
+        f"📞 پشتیبانی: `{CONTACT_NUMBER}`"
+    )
     
     await update.message.reply_text(
-        "📝 لطفاً توضیح دهید چه نوع ربات تلگرامی نیاز دارید:\n\n"
-        "مثال: یک ربات فروشگاهی با امکان پرداخت آنلاین، مدیریت محصولات و گزارش‌گیری\n\n"
-        "شماره تماس ادمین: 09158708858\n",
-        
-        reply_markup=reply_markup
+        message_text,
+        reply_markup=contact_keyboard,
+        parse_mode='Markdown'
+    )
+    
+    await update.message.reply_text(
+        "می‌توانید پیام خود را تایپ کنید یا از دکمه‌های بالا برای ارتباط سریع استفاده نمایید:",
+        reply_markup=reply_keyboard
     )
     
     return REQUEST_BOT
@@ -677,9 +720,25 @@ async def windows_apps_menu(update: Update, context: CallbackContext):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
     await update.message.reply_text(
-        "💻 نرم‌افزارهای ویندوزی می‌توانند کارایی کسب‌وکار شما را افزایش دهند!\n\n"
-        "ما نرم‌افزارهای اختصاصی برای نیازهای خاص شما طراحی می‌کنیم.",
-        reply_markup=reply_markup
+        "💻 *نرم‌افزارهای ویندوزی اختصاصی* 💻\n\n"
+        "✨ *قدرت پردازش و کارایی بی‌نظیر برای کسب‌وکار شما* ✨\n\n"
+        "✅ *خدمات ما:*\n"
+        "▫️ طراحی نرم‌افزارهای مدیریتی و حسابداری\n"
+        "▫️ توسعه ابزارهای تخصصی صنعتی\n"
+        "▫️ ساخت برنامه‌های چندرسانه‌ای و آموزشی\n"
+        "▫️ ایجاد سیستم‌های گزارش‌گیری پیشرفته\n\n"
+        "🛠 *ویژگی‌های کلیدی:*\n"
+        "• رابط کاربری زیبا و کاربرپسند\n"
+        "• امنیت بالا و پایدار\n"
+        "• پشتیبانی از چاپ و خروجی‌های مختلف\n"
+        "• امکان سفارشی‌سازی کامل\n\n"
+        "📌 *مزایای نرم‌افزارهای اختصاصی:*\n"
+        "⏱ صرفه‌جویی در زمان و هزینه\n"
+        "📈 افزایش بهره‌وری و دقت\n"
+        "🔒 امنیت اطلاعات و حریم خصوصی\n\n"
+        "👇 برای مشاهده نمونه کارها یا دریافت مشاوره رایگان، یکی از گزینه‌های زیر را انتخاب کنید:",
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
     return WINDOWS_APPS_MENU
@@ -767,22 +826,82 @@ async def toggle_app_favorite(update: Update, context: CallbackContext):
     return await show_app_details(update, context)
 
 async def request_app(update: Update, context: CallbackContext):
-    keyboard = [
-        ["انصراف"]
-    ]
+    contact_keyboard = generate_contact_keyboard()
     
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup([["انصراف"]], resize_keyboard=True)
+    
+    message_text = (
+        "💻 *درخواست نرم‌افزار ویندوزی اختصاصی* 💻\n\n"
+        "📝 لطفاً نیازهای خود را با جزئیات شرح دهید:\n\n"
+        "✅ *مثال:*\n"
+        "یک نرم‌افزار حسابداری با قابلیت‌های:\n"
+        "- صدور فاکتور و پیش‌فاکتور\n"
+        "- گزارش‌گیری مالی و آماری\n"
+        "- پشتیبان‌گیری خودکار\n"
+        "- مدیریت انبار و موجودی\n\n"
+        f"📞 پشتیبانی: `{CONTACT_NUMBER}`"
+    )
     
     await update.message.reply_text(
-        "📝 لطفاً توضیح دهید چه نوع نرم‌افزار ویندوزی نیاز دارید:\n\n"
-        "مثال: یک نرم‌افزار حسابداری با امکان صدور فاکتور، گزارش‌گیری و پشتیبان‌گیری\n\n"
-        "شماره تماس ادمین: 09158708858\n",
-        
-        reply_markup=reply_markup
+        message_text,
+        reply_markup=contact_keyboard,
+        parse_mode='Markdown'
+    )
+    
+    await update.message.reply_text(
+        "می‌توانید پیام خود را تایپ کنید یا از دکمه‌های بالا برای ارتباط سریع استفاده نمایید:",
+        reply_markup=reply_keyboard
     )
     
     return REQUEST_APP
+def create_contact_section(contact_number):
+    whatsapp_url = f"https://wa.me/{contact_number}"
+    
+    buttons = [
+        InlineKeyboardButton("💬 واتساپ", url=whatsapp_url),
+        InlineKeyboardButton("📋 کپی شماره", callback_data=f"copy_number_{contact_number}")
+    ]
+    
+    keyboard = InlineKeyboardMarkup([buttons])
+    
+    text = (
+        f"📞 *پشتیبانی:* `{contact_number}`\n"
+        f"▫️ [ارتباط از طریق واتساپ]({whatsapp_url})\n"
+        "▫️ یا شماره را کپی کنید"
+    )
+    
+    return text, keyboard    
 
+
+# -------------------- توابع کمکی تماس --------------------
+def generate_contact_keyboard(contact_number="09158708858"):
+    whatsapp_url = f"https://wa.me/{contact_number}"
+    
+    buttons = [
+        InlineKeyboardButton("💬 گفتگو در واتساپ", url=whatsapp_url),
+        InlineKeyboardButton("📋 کپی شماره", callback_data=f"copy_number_{contact_number}")
+    ]
+    
+    return InlineKeyboardMarkup([buttons])
+
+CONTACT_NUMBER = "09158708858"  # این را در بخش تعریف متغیرهای全局 اضافه کنید
+
+
+
+async def handle_copy_app_number(update: Update, context: CallbackContext):
+    query = update.callback_query
+    await query.answer()
+    
+    contact_number = "09158708858"
+    
+    await query.edit_message_text(
+        f"شماره <code>{contact_number}</code> کپی شد!\n\n"
+        "حالا می‌توانید:\n"
+        "1. در برنامه مورد نظر پیست کنید\n"
+        "2. با ما تماس بگیرید\n\n"
+        "برای ادامه، پیام خود را ارسال کنید:",
+        parse_mode='HTML'
+    )
 async def save_app_request(update: Update, context: CallbackContext):
     user_text = update.message.text
     user_id = update.message.from_user.id
@@ -820,6 +939,8 @@ async def save_app_request(update: Update, context: CallbackContext):
 
 # -------------------- بخش پشتیبانی --------------------
 async def support_menu(update: Update, context: CallbackContext):
+    contact_keyboard = generate_contact_keyboard()  # استفاده از تابع تماس یکپارچه
+    
     keyboard = [
         ["درخواست پشتیبانی/مشاوره"],
         ["منوی اصلی"]
@@ -827,32 +948,59 @@ async def support_menu(update: Update, context: CallbackContext):
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
+    # ارسال پیام با دکمه‌های تماس اینلاین
     await update.message.reply_text(
-        "🔧 ما می‌توانیم سایت وردپرس شما را پشتیبانی و دیباگ کنیم!\n\n"
-        "خدمات پشتیبانی ما شامل:\n"
-        "- رفع مشکلات فنی\n"
-        "- بهینه‌سازی سرعت\n"
-        "- افزایش امنیت\n"
-        "- افزودن امکانات جدید\n\n"
-        "برای درخواست پشتیبانی یا مشاوره، گزینه زیر را انتخاب کنید:",
+        "🔧 *خدمات حرفه‌ای پشتیبانی و بهینه‌سازی* 🔧\n\n"
+        "ما با تیم متخصص خود آماده ارائه خدمات:\n\n"
+        "🛠 *پشتیبانی فنی:*\n"
+        "• رفع باگ‌ها و مشکلات فوری\n"
+        "• بهینه‌سازی سرعت بارگذاری\n"
+        "• افزایش امنیت و جلوگیری از نفوذ\n"
+        "⚡ *بهینه‌سازی حرفه‌ای:*\n"
+        "• بهبود سئو فنی\n"
+        "• تحلیل و رفع مشکلات عملکردی\n\n"
+        f"📞 *پشتیبانی فوری:* `{CONTACT_NUMBER}`",
+        reply_markup=contact_keyboard,
+        parse_mode='Markdown'
+    )
+    
+    await update.message.reply_text(
+        "برای ثبت درخواست پشتیبانی یا دریافت مشاوره تخصصی، گزینه زیر را انتخاب کنید:",
         reply_markup=reply_markup
     )
     
     return SUPPORT_MENU
 
+
 async def request_support(update: Update, context: CallbackContext):
-    keyboard = [
-        ["انصراف"]
-    ]
+    contact_keyboard = generate_contact_keyboard()
     
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    reply_keyboard = ReplyKeyboardMarkup([["انصراف"]], resize_keyboard=True)
+    
+    message_text = (
+        "📢 *ثبت درخواست پشتیبانی/مشاوره* 📢\n\n"
+        "لطفاً به دقت توضیح دهید:\n"
+        "• نوع مشکل یا درخواست شما\n"
+        "• آدرس سایت (اگر مربوط به وبسایت است)\n"
+        "• تصویری از خطا (در صورت وجود)\n\n"
+        "✅ *مثال:*\n"
+        "سایت وردپرسی من پس از آپدیت دچار مشکل شده است:\n"
+        "- آدرس سایت: example.com\n"
+        "- خطای 500 دریافت می‌کنم\n"
+        "- مشکل پس از آپدیت پلاگین رخ داده\n\n"
+        f"📞 *پشتیبانی فوری:* `{CONTACT_NUMBER}`\n"
+        "می‌توانید از دکمه‌های زیر برای ارتباط سریع استفاده کنید:"
+    )
     
     await update.message.reply_text(
-        "📝 لطفاً توضیح دهید چه نوع پشتیبانی یا خدمتی نیاز دارید:\n\n"
-        "مثال: نیاز به بهینه‌سازی سرعت یک سایت وردپرس دارم\n\n"
-        "شماره تماس ادمین: 09158708858\n",
-        
-        reply_markup=reply_markup
+        message_text,
+        reply_markup=contact_keyboard,
+        parse_mode='Markdown'
+    )
+    
+    await update.message.reply_text(
+        "پیام خود را وارد کنید یا در صورت نیاز از دکمه انصراف استفاده نمایید:",
+        reply_markup=reply_keyboard
     )
     
     return REQUEST_SUPPORT
@@ -894,27 +1042,41 @@ async def save_support_request(update: Update, context: CallbackContext):
 
 # -------------------- بخش مشاوره --------------------
 async def consultation_menu(update: Update, context: CallbackContext):
-    contact_button = KeyboardButton("📞 تماس با ما", request_contact=True)
-    keyboard = [
-        [contact_button],
-        ["انصراف"]
-    ]
+    contact_keyboard = generate_contact_keyboard()
     
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    # فقط دکمه منوی اصلی را نمایش دهید
+    reply_keyboard = ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    
+    message_text = (
+        "📞 *مشاوره تخصصی رایگان* 📞\n\n"
+        "✅ زمینه‌های مشاوره:\n"
+        "- طراحی وب‌سایت\n"
+        "- توسعه ربات تلگرام\n"
+        "- نرم‌افزارهای ویندوزی\n"
+        "- بهینه‌سازی و سئو\n\n"
+        "لطفاً سوال یا درخواست مشاوره خود را مطرح کنید:"
+    )
     
     await update.message.reply_text(
-        "📞 برای مشاوره تخصصی در زمینه‌های زیر آماده خدمت رسانی به شما هستیم:\n\n"
-        "- طراحی وب‌سایت\n"
-        "- طراحی ربات تلگرام\n"
-        "- طراحی نرم‌افزارهای ویندوزی\n"
-        "- پشتیبانی و بهینه‌سازی\n\n"
-        "لطفاً توضیح دهید چه نوع مشاوره‌ای نیاز دارید:\n\n"
-        "پیام مورد نظر را تایپ کرده و ارسال کنید تا به زودی با شما ارتباط بگیرم.",
-        
-        reply_markup=reply_markup
+        message_text,
+        reply_markup=reply_keyboard
     )
     
     return CONSULTATION
+
+async def handle_copy_number(update: Update, context: CallbackContext):
+    query = update.callback_query
+    await query.answer()
+    
+    contact_number = query.data.replace("copy_number_", "")
+    
+    await query.edit_message_text(
+        f"شماره <code>{contact_number}</code> کپی شد!\n\n"
+        "حالا می‌توانید:\n"
+        "1. در برنامه مورد نظر پیست کنید\n"
+        "2. با ما تماس بگیرید",
+        parse_mode='HTML'
+    )
 async def handle_contact(update: Update, context: CallbackContext):
     contact = update.message.contact
     phone_number = contact.phone_number
@@ -929,6 +1091,11 @@ async def handle_contact(update: Update, context: CallbackContext):
     
     return CONSULTATION
 async def save_consultation(update: Update, context: CallbackContext):
+    # بررسی آیا کاربر دکمه منوی اصلی را زده یا پیام واقعی ارسال کرده
+    if update.message.text in [BTN_BACK_TO_MAIN, "منوی اصلی"]:
+        return await start(update, context)  # مستقیماً به منوی اصلی بروید
+    
+    # فقط اگر پیام واقعی ارسال شده باشد، ادامه پردازش شود
     user_text = update.message.text
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
@@ -945,29 +1112,41 @@ async def save_consultation(update: Update, context: CallbackContext):
         phone_number
     ])
     
-    # ارسال به ادمین (UID: 1810708143)
-    admin_message = (
-        f"درخواست جدید مشاوره:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n"
-        f"شماره تماس: {phone_number}\n\n"
-        f"توضیحات:\n{user_text}"
-    )
-    await context.bot.send_message(
-        chat_id=1810708143,
-        text=admin_message
-    )
+    try:
+        # ارسال به ادمین (با بررسی خطا)
+        admin_message = (
+            f"درخواست جدید مشاوره:\n"
+            f"کاربر: {username} (آیدی: {user_id})\n"
+            f"شماره تماس: {phone_number}\n\n"
+            f"توضیحات:\n{user_text}"
+        )
+        await context.bot.send_message(
+            chat_id=1810708143,
+            text=admin_message
+        )
+    except Exception as e:
+        logger.error(f"خطا در ارسال پیام به ادمین: {str(e)}")
     
     # پاسخ به کاربر
     keyboard = [["منوی اصلی"]]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
     await update.message.reply_text(
-        "✅ درخواست مشاوره شما با موفقیت ثبت شد.\n"
+        "✅ درخواست شما با موفقیت ثبت شد.\n"
         "پس از بررسی با شما تماس گرفته خواهد شد.",
         reply_markup=reply_markup
     )
     
     return MAIN_MENU
+
+async def fallback_handler(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        "لطفاً از دکمه‌های منو استفاده کنید:",
+        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    )
+    return MAIN_MENU
+
+
 async def save_and_notify(context: CallbackContext, sheet_name: str, data: list, message: str):
     # ذخیره در Google Sheets
     db[sheet_name].append_row(data)
@@ -1166,22 +1345,49 @@ async def send_favorite_to_admin(update: Update, context: CallbackContext):
     return FAVORITES_MENU
 
 async def services_menu(update: Update, context: CallbackContext):
+    # دریافت خدمات از دیتابیس
     services = db["services"].get_all_records()
     
-    services_text = "🛠 خدمات متنوع ما:\n\n"
-    for service in services:
-        services_text += f"• {service['Title']}: {service['Description']}\n\n"
-    
+    # ایجاد کیبورد
     keyboard = [
         ["درخواست مشاوره"],
-        ["منوی اصلی"]
+        [BTN_BACK_TO_MAIN]  
     ]
-    
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
+    # ایجاد متن خدمات با قابلیت Markdown
+    services_text = (
+        "🌟 *خدمات دیجیتال مارکتینگ و توسعه حرفه‌ای* 🌟\n\n"
+        "🔹 *طراحی حرفه‌ای لوگو و هویت بصری:*\n"
+        "• طراحی لوگو منحصر بفرد\n"
+        "• راهنمای رنگ و فونت (Style Guide)\n"
+        "• طراحی کارت ویزیت و سربرگ\n\n"
+        "📈 *خدمات اینستاگرام و شبکه‌های اجتماعی:*\n"
+        "• افزایش تعامل و رشد فالوور\n\n"
+        "🖥 *طراحی صفحات ویژه (لندینگ پیج):*\n"
+        "• طراحی جذاب و تبدیل محور\n"
+        "• بهینه‌سازی برای تبدیل بالاتر\n\n"
+        "📊 *سیستم‌های گزارش‌گیری و تحلیل:*\n"
+        "• داشبوردهای مدیریتی\n"
+        "• گزارش‌های سفارشی\n"
+        "• آنالیز داده‌های کسب‌وکار\n\n"
+        "🎨 *سایر خدمات تخصصی:*\n"
+        "• طراحی رابط کاربری (UI/UX)\n"
+        "• تولید محتوای متنی و تصویری\n"
+        "• بهینه‌سازی سئو\n\n"
+        "💡 *چرا خدمات ما متفاوت است؟*\n"
+        "✅ تیم متخصص با 10+ سال تجربه\n"
+        "✅ پشتیبانی 24/7\n"
+        "✅ قیمت‌های رقابتی\n"
+        "✅ تضمین کیفیت\n\n"
+        f"📞 برای مشاوره رایگان همین حالا با ما تماس بگیرید: `{CONTACT_NUMBER}`"
+    )
+    
+    # ارسال پیام نهایی
     await update.message.reply_text(
         services_text,
-        reply_markup=reply_markup
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
     return SERVICES_MENU
@@ -1193,6 +1399,7 @@ def main():
         
         conv_handler = ConversationHandler(
             entry_points=[CommandHandler('start', start)],
+            
             states={
                 MAIN_MENU: [
                     MessageHandler(filters.Text(BTN_WEBSITES), websites_menu),
@@ -1208,6 +1415,8 @@ def main():
                 COPY_NUMBER: [
                     MessageHandler(filters.Text("📱 کپی شماره پشتیبانی"), copy_number_handler),
                     MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
+                    MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),  # این خط مهم است
+
                 ],
 
                 WEBSITES_MENU: [
@@ -1217,8 +1426,10 @@ def main():
                                 filters.Text(BTN_GALLERY), website_category),
                     MessageHandler(filters.Text(BTN_WEBSITE_PRICES), show_website_prices),
                     MessageHandler(filters.Text(BTN_REQUEST_WEBSITE), request_website),
+                    MessageHandler(filters.Text("منوی وب‌سایت‌ها"), websites_menu),  # این خط جدید
                     MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
-                        ],
+                    MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),  
+                ],
                 WEBSITE_CATEGORY: [
                     MessageHandler(filters.Text("⭐ افزودن به علاقه‌مندی‌ها") | 
                                  filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_website_favorite),
@@ -1275,7 +1486,8 @@ def main():
                 ],
                 ABOUT_MENU: [
                     MessageHandler(filters.Text("درخواست مشاوره"), consultation_menu),
-                    MessageHandler(filters.Text("منوی اصلی"), start),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN) | filters.Text("منوی اصلی"), start),
+
                 ],
                 FAVORITES_MENU: [
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), navigate_favorites),
@@ -1290,15 +1502,21 @@ def main():
                 ],
                 SERVICES_MENU: [
                     MessageHandler(filters.Text("درخواست مشاوره"), consultation_menu),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
                     MessageHandler(filters.Text("منوی اصلی"), start),
+                    MessageHandler(filters.TEXT & ~filters.Text(BTN_BACK_TO_MAIN) & ~filters.Text("منوی اصلی") & ~filters.Text("درخواست مشاوره"), save_consultation),
                 ],
             },
-            fallbacks=[CommandHandler('start', start)],
-            allow_reentry=True 
+            fallbacks=[
+                CommandHandler('start', start),
+                MessageHandler(filters.ALL, fallback_handler)
+            ],
+            allow_reentry=True
         )
         
         application.add_handler(conv_handler)
-        
+        application.add_handler(CallbackQueryHandler(handle_copy_number, pattern="^copy_number_"))
+
         logger.info("✅ ربات در حال راه‌اندازی...")
         application.run_polling()
         
@@ -1314,4 +1532,4 @@ if __name__ == "__main__":
 # -------------------- پایان کد --------------------
 
 
-# لطفا از کاربر بخواهید شماره خود به اشتراک بزاره 
+
