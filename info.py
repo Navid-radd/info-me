@@ -15,6 +15,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 import logging
+import asyncio
 import traceback
 from logging.handlers import RotatingFileHandler
 
@@ -40,8 +41,10 @@ load_dotenv("config.env")
     CONSULTATION,
     SERVICES_MENU,
     REQUEST_WEBSITE,
-    COPY_NUMBER  # <-- این خط را اضافه کنید
-) = range(18)
+    COPY_NUMBER,
+    SEARCH_ITEMS  
+
+) = range(19)
 
 
 
@@ -54,6 +57,7 @@ BTN_CONSULTATION = "درخواست و مشاوره 📩"
 BTN_ABOUT = "درباره رادوتیم ℹ️"
 BTN_FAVORITES = "لیست علاقه‌مندی‌ها ⭐"
 BTN_SERVICES = "خدمات متنوع 🧰"
+BTN_SEARCH = "جستجوی نمونه کارها 🔍"
 
 BTN_ECOMMERCE = "فروشگاهی 🛒"
 BTN_CORPORATE = "شرکتی 🏢"
@@ -264,13 +268,15 @@ async def copy_number_handler(update: Update, context: CallbackContext):
 
 # -------------------- بخش وب‌سایت‌ها --------------------
 async def websites_menu(update: Update, context: CallbackContext):
+    context.user_data['current_menu'] = WEBSITES_MENU  # ذخیره منوی فعلی برای جستجو
     keyboard = [
         [BTN_ECOMMERCE, BTN_CORPORATE],
         [BTN_RESUME, BTN_GALLERY],
         [BTN_WEBSITE_PRICES],
-        [BTN_REQUEST_WEBSITE, BTN_BACK_TO_MAIN],
-        [BTN_CONTACT]  # دکمه تماس به صورت جداگانه
+        [BTN_REQUEST_WEBSITE, BTN_SEARCH],  # اضافه کردن دکمه جستجو
+        [BTN_BACK_TO_MAIN]
     ]
+    # بقیه کد بدون تغییر...
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
@@ -301,7 +307,7 @@ async def website_category(update: Update, context: CallbackContext):
     
     context.user_data['website_category'] = category
     
-    # ارسال پیام در حال دریافت و ذخیره message_id
+    # ارسال پیام در حال دریافت با افکت ناپدید شدن
     loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست نمونه کارها...")
     context.user_data['loading_msg_id'] = loading_msg.message_id
     
@@ -309,11 +315,13 @@ async def website_category(update: Update, context: CallbackContext):
     category_websites = [w for w in websites if w['Category'] == category]
     
     if not category_websites:
-        # حذف پیام در حال دریافت
-        await context.bot.delete_message(
+        # ویرایش پیام به جای حذف آن
+        await context.bot.edit_message_text(
             chat_id=update.message.chat_id,
-            message_id=context.user_data['loading_msg_id']
+            message_id=context.user_data['loading_msg_id'],
+            text="⏳ نمونه‌کاری در این دسته‌بندی یافت نشد..."
         )
+        await asyncio.sleep(1.5)  # تاخیر برای افکت
         
         keyboard = [
             ["منوی وب‌سایت‌ها"],
@@ -330,11 +338,13 @@ async def website_category(update: Update, context: CallbackContext):
     context.user_data['category_websites'] = category_websites
     context.user_data['current_website_index'] = 0
     
-    # حذف پیام در حال دریافت قبل از نمایش نمونه کار
-    await context.bot.delete_message(
+    # ویرایش پیام به جای حذف آن
+    await context.bot.edit_message_text(
         chat_id=update.message.chat_id,
-        message_id=context.user_data['loading_msg_id']
+        message_id=context.user_data['loading_msg_id'],
+        text="✅ نمونه کارها آماده شد!"
     )
+    await asyncio.sleep(1)  # تاخیر برای افکت
     
     return await show_website_item(update, context)
 
@@ -548,8 +558,10 @@ async def save_website_request(update: Update, context: CallbackContext):
 
 # -------------------- بخش ربات‌های تلگرام --------------------
 async def telegram_bots_menu(update: Update, context: CallbackContext):
+    context.user_data['current_menu'] = TELEGRAM_BOTS_MENU  # ذخیره منوی فعلی برای جستجو
     keyboard = [
         ["درخواست ربات", "ادامه مطلب"],
+        [BTN_SEARCH],  # اضافه کردن دکمه جستجو
         ["منوی اصلی"]
     ]
     
@@ -583,8 +595,8 @@ async def show_bot_details(update: Update, context: CallbackContext):
     if 'current_bot_index' not in context.user_data:
         context.user_data['current_bot_index'] = 0
     
-    # ارسال پیام در حال دریافت و ذخیره message_id
-    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست نمونه کارها...")
+    # ارسال پیام در حال دریافت با افکت
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست ربات‌ها...")
     context.user_data['loading_msg_id'] = loading_msg.message_id
     
     bot_index = context.user_data['current_bot_index']
@@ -604,11 +616,13 @@ async def show_bot_details(update: Update, context: CallbackContext):
         for fav in get_user_favorites(user_id)
     )
     
-    # حذف پیام در حال دریافت قبل از نمایش نمونه کار
-    await context.bot.delete_message(
+    # ویرایش پیام به جای حذف آن
+    await context.bot.edit_message_text(
         chat_id=update.message.chat_id,
-        message_id=context.user_data['loading_msg_id']
+        message_id=context.user_data['loading_msg_id'],
+        text="✅ اطلاعات ربات آماده شد!"
     )
+    await asyncio.sleep(0.8)  # تاخیر کوتاه
     
     keyboard = []
     
@@ -739,8 +753,10 @@ async def save_bot_request(update: Update, context: CallbackContext):
 
 # -------------------- بخش نرم‌افزارهای ویندوزی --------------------
 async def windows_apps_menu(update: Update, context: CallbackContext):
+    context.user_data['current_menu'] = WINDOWS_APPS_MENU  # ذخیره منوی فعلی برای جستجو
     keyboard = [
         ["درخواست نرم‌افزار", "نمونه کارها"],
+        [BTN_SEARCH],  # اضافه کردن دکمه جستجو
         ["منوی اصلی"]
     ]
     
@@ -909,6 +925,121 @@ def create_contact_section(contact_number):
     )
     
     return text, keyboard    
+#جستجو در آیتم‌ها
+
+async def search_items(update: Update, context: CallbackContext):
+    await update.message.reply_text(
+        "🔍 لطفاً عبارت جستجو را وارد کنید:\n\n"
+        "مثال:\n"
+        "- آرایشی\n"
+        "- فروشگاهی\n"
+        "- مدیریتی\n"
+        "- آموزشی",
+        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+    )
+    return SEARCH_ITEMS
+
+async def handle_search(update: Update, context: CallbackContext):
+    user_input = update.message.text
+    
+    # بررسی اگر کاربر دکمه منوی اصلی را زده باشد
+    if user_input == BTN_BACK_TO_MAIN:
+        return await start(update, context)
+    
+    search_query = user_input.lower()
+    current_menu = context.user_data.get('current_menu')
+
+    # تعیین نوع آیتم‌ها بر اساس منوی فعلی
+    if current_menu == WEBSITES_MENU:
+        sheet_name = 'websites'
+        item_type = 'website'
+    elif current_menu == TELEGRAM_BOTS_MENU:
+        sheet_name = 'telegram_bots'
+        item_type = 'telegram_bot'
+    elif current_menu == WINDOWS_APPS_MENU:
+        sheet_name = 'windows_apps'
+        item_type = 'windows_app'
+    else:
+        await update.message.reply_text("خطا در جستجو!")
+        return MAIN_MENU
+
+    # جستجو در گوگل شیت
+    all_items = db[sheet_name].get_all_records()
+    found_items = [
+        item for item in all_items
+        if search_query in item.get('Tags', '').lower() or 
+           search_query in item.get('Title', '').lower() or
+           search_query in item.get('Description', '').lower()
+    ]
+
+    if not found_items:
+        await update.message.reply_text(
+            f"نتیجه‌ای برای '{search_query}' یافت نشد.",
+            reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+        )
+        return current_menu
+
+    context.user_data['search_results'] = found_items
+    context.user_data['current_item_index'] = 0
+    context.user_data['search_query'] = search_query
+
+    return await show_search_result(update, context)
+
+async def show_search_result(update: Update, context: CallbackContext):
+    found_items = context.user_data['search_results']
+    index = context.user_data['current_item_index']
+    item = found_items[index]
+    search_query = context.user_data['search_query']
+
+    keyboard = []
+    
+    # دکمه‌های ناوبری
+    nav_buttons = []
+    if index > 0:
+        nav_buttons.append("◀ قبلی")
+    if index < len(found_items) - 1:
+        nav_buttons.append("بعدی ▶")
+    
+    if nav_buttons:
+        keyboard.append(nav_buttons)
+    
+    keyboard.append(["جستجوی جدید"])
+    keyboard.append(["منوی اصلی"])
+
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    message_text = (
+        f"🔍 نتایج برای '{search_query}'\n\n"
+        f"🏷 عنوان: {item['Title']}\n\n"
+        f"📝 توضیحات: {item['Description']}\n\n"
+        f"🏷 برچسب‌ها: {item.get('Tags', 'بدون برچسب')}\n\n"
+        f"🔄 نتیجه {index + 1} از {len(found_items)}"
+    )
+
+    if item.get('ImageURL'):
+        await update.message.reply_photo(
+            photo=item['ImageURL'],
+            caption=message_text,
+            reply_markup=reply_markup
+        )
+    else:
+        await update.message.reply_text(
+            text=message_text,
+            reply_markup=reply_markup
+        )
+
+    return SEARCH_ITEMS
+
+async def navigate_search_results(update: Update, context: CallbackContext):
+    action = update.message.text
+    
+    if action == "بعدی ▶":
+        context.user_data['current_item_index'] += 1
+    elif action == "◀ قبلی":
+        context.user_data['current_item_index'] -= 1
+    
+    return await show_search_result(update, context)
+
 
 
 # -------------------- توابع کمکی تماس --------------------
@@ -1411,6 +1542,19 @@ async def send_favorite_to_admin(update: Update, context: CallbackContext):
     
     return FAVORITES_MENU
 
+async def navigate_search_results(update: Update, context: CallbackContext):
+    """هدایت بین نتایج جستجو"""
+    action = update.message.text
+    
+    # به روزرسانی index بر اساس دکمه فشرده شده
+    if action == "بعدی ▶":
+        context.user_data['current_item_index'] += 1
+    elif action == "◀ قبلی":
+        context.user_data['current_item_index'] -= 1
+    
+    # نمایش نتیجه جدید
+    return await show_search_result(update, context)
+
 async def services_menu(update: Update, context: CallbackContext):
     # دریافت خدمات از دیتابیس
     services = db["services"].get_all_records()
@@ -1479,6 +1623,13 @@ def main():
                     MessageHandler(filters.Text(BTN_SERVICES), services_menu),
                     MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),
                 ],
+                SEARCH_ITEMS: [
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
+                    MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), navigate_search_results),
+                    MessageHandler(filters.Text("جستجوی جدید"), search_items),
+                    MessageHandler(filters.TEXT & ~filters.Text([BTN_BACK_TO_MAIN, "◀ قبلی", "بعدی ▶", "جستجوی جدید"]), handle_search),
+                ],
+    
                 COPY_NUMBER: [
                     MessageHandler(filters.Text("📱 کپی شماره پشتیبانی"), copy_number_handler),
                     MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
@@ -1491,6 +1642,7 @@ def main():
                                 filters.Text(BTN_CORPORATE) | 
                                 filters.Text(BTN_RESUME) | 
                                 filters.Text(BTN_GALLERY), website_category),
+                    MessageHandler(filters.Text(BTN_SEARCH), search_items),
                     MessageHandler(filters.Text(BTN_WEBSITE_PRICES), show_website_prices),
                     MessageHandler(filters.Text(BTN_REQUEST_WEBSITE), request_website),
                     MessageHandler(filters.Text("منوی وب‌سایت‌ها"), websites_menu),  # این خط جدید
@@ -1521,6 +1673,7 @@ def main():
                 TELEGRAM_BOTS_MENU: [
                     MessageHandler(filters.Text("ادامه مطلب"), show_bot_details),
                     MessageHandler(filters.Text("درخواست ربات"), request_bot),
+                    MessageHandler(filters.Text(BTN_SEARCH), search_items),  # اضافه کردن handler جستجو
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 TELEGRAM_BOT_DETAILS: [
@@ -1538,6 +1691,7 @@ def main():
                 WINDOWS_APPS_MENU: [
                     MessageHandler(filters.Text("نمونه کارها"), show_app_details),
                     MessageHandler(filters.Text("درخواست نرم‌افزار"), request_app),
+                    MessageHandler(filters.Text(BTN_SEARCH), search_items),  # اضافه کردن handler جستجو
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 WINDOWS_APP_DETAILS: [
