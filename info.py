@@ -286,7 +286,6 @@ async def websites_menu(update: Update, context: CallbackContext):
 async def website_category(update: Update, context: CallbackContext):
     user_input = update.message.text
     
-    # ایجاد نگاشت بین متن دکمه‌ها و دسته‌بندی‌های واقعی
     category_mapping = {
         BTN_ECOMMERCE: "فروشگاهی",
         BTN_CORPORATE: "شرکتی",
@@ -294,7 +293,6 @@ async def website_category(update: Update, context: CallbackContext):
         BTN_GALLERY: "گالری"
     }
     
-    # پیدا کردن دسته‌بندی متناظر
     category = category_mapping.get(user_input)
     
     if not category:
@@ -303,10 +301,20 @@ async def website_category(update: Update, context: CallbackContext):
     
     context.user_data['website_category'] = category
     
+    # ارسال پیام در حال دریافت و ذخیره message_id
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست نمونه کارها...")
+    context.user_data['loading_msg_id'] = loading_msg.message_id
+    
     websites = db["websites"].get_all_records()
     category_websites = [w for w in websites if w['Category'] == category]
     
     if not category_websites:
+        # حذف پیام در حال دریافت
+        await context.bot.delete_message(
+            chat_id=update.message.chat_id,
+            message_id=context.user_data['loading_msg_id']
+        )
+        
         keyboard = [
             ["منوی وب‌سایت‌ها"],
             ["منوی اصلی"]
@@ -321,6 +329,12 @@ async def website_category(update: Update, context: CallbackContext):
     
     context.user_data['category_websites'] = category_websites
     context.user_data['current_website_index'] = 0
+    
+    # حذف پیام در حال دریافت قبل از نمایش نمونه کار
+    await context.bot.delete_message(
+        chat_id=update.message.chat_id,
+        message_id=context.user_data['loading_msg_id']
+    )
     
     return await show_website_item(update, context)
 
@@ -340,6 +354,7 @@ async def show_website_item(update: Update, context: CallbackContext):
     fav_button_text = "❌ حذف از علاقه‌مندی‌ها" if is_favorite else "⭐ افزودن به علاقه‌مندی‌ها"
     keyboard.append([fav_button_text])
     
+    # اضافه کردن دکمه‌های ناوبری
     nav_buttons = []
     if index > 0:
         nav_buttons.append("◀ قبلی")
@@ -375,6 +390,7 @@ async def show_website_item(update: Update, context: CallbackContext):
         )
     
     return WEBSITE_ITEM
+
 
 async def website_navigate(update: Update, context: CallbackContext):
     action = update.message.text
@@ -567,6 +583,10 @@ async def show_bot_details(update: Update, context: CallbackContext):
     if 'current_bot_index' not in context.user_data:
         context.user_data['current_bot_index'] = 0
     
+    # ارسال پیام در حال دریافت و ذخیره message_id
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست نمونه کارها...")
+    context.user_data['loading_msg_id'] = loading_msg.message_id
+    
     bot_index = context.user_data['current_bot_index']
     bots = db["telegram_bots"].get_all_records()
     
@@ -584,11 +604,18 @@ async def show_bot_details(update: Update, context: CallbackContext):
         for fav in get_user_favorites(user_id)
     )
     
+    # حذف پیام در حال دریافت قبل از نمایش نمونه کار
+    await context.bot.delete_message(
+        chat_id=update.message.chat_id,
+        message_id=context.user_data['loading_msg_id']
+    )
+    
     keyboard = []
     
     fav_button_text = "❌ حذف از علاقه‌مندی‌ها" if is_favorite else "⭐ افزودن به علاقه‌مندی‌ها"
     keyboard.append([fav_button_text])
     
+    # اضافه کردن دکمه‌های ناوبری
     nav_buttons = []
     if bot_index > 0:
         nav_buttons.append("◀ قبلی")
@@ -747,6 +774,10 @@ async def show_app_details(update: Update, context: CallbackContext):
     if 'current_app_index' not in context.user_data:
         context.user_data['current_app_index'] = 0
     
+    # ارسال پیام در حال دریافت و ذخیره message_id
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست نمونه کارها...")
+    context.user_data['loading_msg_id'] = loading_msg.message_id
+    
     app_index = context.user_data['current_app_index']
     apps = db["windows_apps"].get_all_records()
     
@@ -764,11 +795,18 @@ async def show_app_details(update: Update, context: CallbackContext):
         for fav in get_user_favorites(user_id)
     )
     
+    # حذف پیام در حال دریافت قبل از نمایش نمونه کار
+    await context.bot.delete_message(
+        chat_id=update.message.chat_id,
+        message_id=context.user_data['loading_msg_id']
+    )
+    
     keyboard = []
     
     fav_button_text = "❌ حذف از علاقه‌مندی‌ها" if is_favorite else "⭐ افزودن به علاقه‌مندی‌ها"
     keyboard.append([fav_button_text])
     
+    # اضافه کردن دکمه‌های ناوبری
     nav_buttons = []
     if app_index > 0:
         nav_buttons.append("◀ قبلی")
@@ -1188,9 +1226,20 @@ async def about_menu(update: Update, context: CallbackContext):
 # -------------------- بخش لیست علاقه‌مندی‌ها --------------------
 async def favorites_menu(update: Update, context: CallbackContext):
     user_id = update.message.from_user.id
+    
+    # ارسال پیام در حال دریافت و ذخیره message_id
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت لیست علاقه‌مندی‌ها...")
+    context.user_data['loading_msg_id'] = loading_msg.message_id
+    
     favorites = get_user_favorites(user_id)
     
     if not favorites:
+        # حذف پیام در حال دریافت
+        await context.bot.delete_message(
+            chat_id=update.message.chat_id,
+            message_id=context.user_data['loading_msg_id']
+        )
+        
         keyboard = [
             ["منوی اصلی"]
         ]
@@ -1208,12 +1257,22 @@ async def favorites_menu(update: Update, context: CallbackContext):
     context.user_data['user_favorites'] = favorites
     context.user_data['current_favorite_index'] = 0
     
+    # حذف پیام در حال دریافت
+    await context.bot.delete_message(
+        chat_id=update.message.chat_id,
+        message_id=context.user_data['loading_msg_id']
+    )
+    
     return await show_favorite_item(update, context)
 
 async def show_favorite_item(update: Update, context: CallbackContext):
     favorites = context.user_data['user_favorites']
     index = context.user_data['current_favorite_index']
     favorite = favorites[index]
+    
+    # ارسال پیام در حال دریافت و ذخیره message_id
+    loading_msg = await update.message.reply_text("🔍 در حال دریافت اطلاعات آیتم...")
+    context.user_data['loading_msg_id'] = loading_msg.message_id
     
     # دریافت اطلاعات آیتم از دیتابیس مربوطه
     item_type = favorite['ItemType']
@@ -1237,6 +1296,14 @@ async def show_favorite_item(update: Update, context: CallbackContext):
     else:
         item_title = "آیتم ناشناخته"
         description = "نوع این آیتم شناسایی نشد"
+    
+    # حذف پیام در حال دریافت قبل از نمایش آیتم
+    await context.bot.delete_message(
+        chat_id=update.message.chat_id,
+        message_id=context.user_data['loading_msg_id']
+    )
+    
+    # بقیه کد بدون تغییر...
     
     keyboard = []
     
@@ -1438,6 +1505,15 @@ def main():
                     MessageHandler(filters.Text("منوی وب‌سایت‌ها"), websites_menu),
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
+                WEBSITE_ITEM: [
+                    MessageHandler(filters.Text("⭐ افزودن به علاقه‌مندی‌ها") | 
+                    filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_website_favorite),
+                    MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), website_navigate),
+                    MessageHandler(filters.Text("ارسال به ادمین"), send_website_to_admin),
+                    MessageHandler(filters.Text("منوی وب‌سایت‌ها"), websites_menu),
+                    MessageHandler(filters.Text("منوی اصلی"), start),
+                ],
+
                 REQUEST_WEBSITE: [
                     MessageHandler(filters.TEXT & ~filters.Text("انصراف"), save_website_request),
                     MessageHandler(filters.Text("انصراف"), websites_menu),
@@ -1449,7 +1525,7 @@ def main():
                 ],
                 TELEGRAM_BOT_DETAILS: [
                     MessageHandler(filters.Text("⭐ افزودن به علاقه‌مندی‌ها") | 
-                                 filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_bot_favorite),
+                    filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_bot_favorite),
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), show_bot_details),
                     MessageHandler(filters.Text("درخواست ربات مشابه"), request_bot),
                     MessageHandler(filters.Text("منوی ربات‌ها"), telegram_bots_menu),
@@ -1466,7 +1542,7 @@ def main():
                 ],
                 WINDOWS_APP_DETAILS: [
                     MessageHandler(filters.Text("⭐ افزودن به علاقه‌مندی‌ها") | 
-                                 filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_app_favorite),
+                    filters.Text("❌ حذف از علاقه‌مندی‌ها"), toggle_app_favorite),
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), show_app_details),
                     MessageHandler(filters.Text("درخواست نرم‌افزار مشابه"), request_app),
                     MessageHandler(filters.Text("منوی نرم‌افزارها"), windows_apps_menu),
@@ -1533,3 +1609,6 @@ if __name__ == "__main__":
 
 
 
+# ezafe kardan pm dar hal jeste jo
+# ezafe kardan download file ax 
+# list alaghe madi ? 
