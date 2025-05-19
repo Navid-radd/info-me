@@ -928,6 +928,12 @@ def create_contact_section(contact_number):
 #جستجو در آیتم‌ها
 
 async def search_items(update: Update, context: CallbackContext):
+    keyboard = [
+        ["منوی اصلی"]
+    ]
+    
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
     await update.message.reply_text(
         "🔍 لطفاً عبارت جستجو را وارد کنید:\n\n"
         "مثال:\n"
@@ -935,14 +941,14 @@ async def search_items(update: Update, context: CallbackContext):
         "- فروشگاهی\n"
         "- مدیریتی\n"
         "- آموزشی",
-        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+        reply_markup=reply_markup
     )
     return SEARCH_ITEMS
 
 async def handle_search(update: Update, context: CallbackContext):
     user_input = update.message.text
     
-    # بررسی اگر کاربر دکمه منوی اصلی را زده باشد
+    # اگر کاربر دکمه منوی اصلی را زد
     if user_input == BTN_BACK_TO_MAIN:
         return await start(update, context)
     
@@ -960,7 +966,7 @@ async def handle_search(update: Update, context: CallbackContext):
         sheet_name = 'windows_apps'
         item_type = 'windows_app'
     else:
-        await update.message.reply_text("خطا در جستجو!")
+        await update.message.reply_text("خطا در جستجو! لطفاً از منوی اصلی دوباره شروع کنید.")
         return MAIN_MENU
 
     # جستجو در گوگل شیت
@@ -973,16 +979,81 @@ async def handle_search(update: Update, context: CallbackContext):
     ]
 
     if not found_items:
+        keyboard = [
+            ["جستجوی مجدد"],
+            ["منوی اصلی"]
+        ]
+        
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        
         await update.message.reply_text(
-            f"نتیجه‌ای برای '{search_query}' یافت نشد.",
-            reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+            f"نتیجه‌ای برای '{search_query}' یافت نشد.\n\n"
+            "می‌توانید:\n"
+            "- با واژه دیگری جستجو کنید\n"
+            "- به منوی اصلی بازگردید",
+            reply_markup=reply_markup
         )
-        return current_menu
+        return SEARCH_ITEMS  # باقی ماندن در حالت جستجو برای تلاش مجدد
 
     context.user_data['search_results'] = found_items
     context.user_data['current_item_index'] = 0
     context.user_data['search_query'] = search_query
 
+    return await show_search_result(update, context)
+
+async def show_search_result(update: Update, context: CallbackContext):
+    found_items = context.user_data['search_results']
+    index = context.user_data['current_item_index']
+    item = found_items[index]
+    search_query = context.user_data['search_query']
+
+    keyboard = []
+    
+    # دکمه‌های ناوبری
+    nav_buttons = []
+    if index > 0:
+        nav_buttons.append("◀ قبلی")
+    if index < len(found_items) - 1:
+        nav_buttons.append("بعدی ▶")
+    
+    if nav_buttons:
+        keyboard.append(nav_buttons)
+    
+    keyboard.append(["جستجوی جدید"])
+    keyboard.append(["منوی اصلی"])
+
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
+    message_text = (
+        f"🔍 نتایج برای '{search_query}'\n\n"
+        f"🏷 عنوان: {item['Title']}\n\n"
+        f"📝 توضیحات: {item['Description']}\n\n"
+        f"🏷 برچسب‌ها: {item.get('Tags', 'بدون برچسب')}\n\n"
+        f"🔄 نتیجه {index + 1} از {len(found_items)}"
+    )
+
+    if item.get('ImageURL'):
+        await update.message.reply_photo(
+            photo=item['ImageURL'],
+            caption=message_text,
+            reply_markup=reply_markup
+        )
+    else:
+        await update.message.reply_text(
+            text=message_text,
+            reply_markup=reply_markup
+        )
+
+    return SEARCH_ITEMS
+
+async def navigate_search_results(update: Update, context: CallbackContext):
+    action = update.message.text
+    
+    if action == "بعدی ▶":
+        context.user_data['current_item_index'] += 1
+    elif action == "◀ قبلی":
+        context.user_data['current_item_index'] -= 1
+    
     return await show_search_result(update, context)
 
 async def show_search_result(update: Update, context: CallbackContext):
@@ -1624,10 +1695,10 @@ def main():
                     MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),
                 ],
                 SEARCH_ITEMS: [
-                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN) | filters.Text("منوی اصلی"), start),
+                    MessageHandler(filters.Text("جستجوی جدید") | filters.Text("جستجوی مجدد"), search_items),
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), navigate_search_results),
-                    MessageHandler(filters.Text("جستجوی جدید"), search_items),
-                    MessageHandler(filters.TEXT & ~filters.Text([BTN_BACK_TO_MAIN, "◀ قبلی", "بعدی ▶", "جستجوی جدید"]), handle_search),
+                    MessageHandler(filters.TEXT & ~filters.Text([BTN_BACK_TO_MAIN, "◀ قبلی", "بعدی ▶", "جستجوی جدید", "جستجوی مجدد", "منوی اصلی"]), handle_search),
                 ],
     
                 COPY_NUMBER: [
@@ -1759,10 +1830,5 @@ if __name__ == "__main__":
 
     
 
-# -------------------- پایان کد --------------------
 
 
-
-# ezafe kardan pm dar hal jeste jo
-# ezafe kardan download file ax 
-# list alaghe madi ? 
