@@ -169,6 +169,7 @@ def send_to_admin(context: CallbackContext, message):
     except Exception as e:
         logger.error(f"خطا در ارسال پیام به ادمین: {str(e)}")
 
+
 # -------------------- دستور /start --------------------
 async def start(update: Update, context: CallbackContext):
     user = update.message.from_user if update.message else update.callback_query.from_user
@@ -224,7 +225,7 @@ async def handle_contact_request(update: Update, context: CallbackContext):
     await update.message.reply_text(
         f"📞 برای تماس با پشتیبانی:\n\n"
         f"شماره: <code>{CONTACT_NUMBER}</code>\n\n"
-        "👉 روش‌های تماس:",
+        "👉 می‌توانید از دکمه‌های زیر استفاده کنید:",
         parse_mode='HTML',
         reply_markup=contact_keyboard
     )
@@ -526,35 +527,43 @@ async def save_website_request(update: Update, context: CallbackContext):
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
     
-    db["support"].append_row([
-        user_id,
-        username,
-        "درخواست وب‌سایت",
-        user_text,
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending"
-    ])
-    
-    admin_message = (
-        f"درخواست جدید وب‌سایت:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n\n"
-        f"توضیحات:\n{user_text}"
-    )
-    send_to_admin(context, admin_message)
-    
-    keyboard = [
-        ["منوی اصلی"]
-    ]
-    
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    
-    await update.message.reply_text(
-        "✅ درخواست شما با موفقیت ثبت شد.\n"
-        "پس از بررسی با شما تماس گرفته خواهد شد.",
-        reply_markup=reply_markup
-    )
-    
-    return MAIN_MENU
+    try:
+        # ذخیره در Google Sheets
+        db["support"].append_row([
+            user_id,
+            username,
+            "درخواست وب‌سایت",
+            user_text,
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Pending"
+        ])
+        
+        # ارسال به ادمین
+        admin_message = (
+            f"🌐 درخواست جدید وب‌سایت\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user_id}\n"
+            f"📅 تاریخ: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"📝 توضیحات:\n{user_text}"
+        )
+        
+        await send_to_admin(context, admin_message)
+        
+        keyboard = [[BTN_BACK_TO_MAIN]]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        
+        await update.message.reply_text(
+            "✅ درخواست وب‌سایت شما با موفقیت ثبت شد.\n"
+            "همکاران ما به زودی با شما تماس خواهند گرفت.",
+            reply_markup=reply_markup
+        )
+        
+        return MAIN_MENU
+        
+    except Exception as e:
+        logger.error(f"خطا در ثبت درخواست وب‌سایت: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ثبت درخواست رخ داده است. لطفاً مجدداً تلاش کنید.")
+        return REQUEST_WEBSITE
 
 # -------------------- بخش ربات‌های تلگرام --------------------
 async def telegram_bots_menu(update: Update, context: CallbackContext):
@@ -721,35 +730,43 @@ async def save_bot_request(update: Update, context: CallbackContext):
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
     
-    db["support"].append_row([
-        user_id,
-        username,
-        "درخواست ربات تلگرام",
-        user_text,
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending"
-    ])
-    
-    admin_message = (
-        f"درخواست جدید ربات تلگرام:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n\n"
-        f"توضیحات:\n{user_text}"
-    )
-    send_to_admin(context, admin_message)
-    
-    keyboard = [
-        ["منوی اصلی"]
-    ]
-    
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    
-    await update.message.reply_text(
-        "✅ درخواست شما با موفقیت ثبت شد.\n"
-        "پس از بررسی با شما تماس گرفته خواهد شد.",
-        reply_markup=reply_markup
-    )
-    
-    return MAIN_MENU
+    try:
+        # ذخیره در Google Sheets
+        db["support"].append_row([
+            user_id,
+            username,
+            "درخواست ربات تلگرام",
+            user_text,
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Pending"
+        ])
+        
+        # ارسال به ادمین
+        admin_message = (
+            f"📮 درخواست جدید ربات تلگرام\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user_id}\n"
+            f"📅 تاریخ: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"📝 توضیحات:\n{user_text}"
+        )
+        
+        await send_to_admin(context, admin_message)
+        
+        keyboard = [[BTN_BACK_TO_MAIN]]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        
+        await update.message.reply_text(
+            "✅ درخواست ربات شما با موفقیت ثبت شد.\n"
+            "همکاران ما به زودی با شما تماس خواهند گرفت.",
+            reply_markup=reply_markup
+        )
+        
+        return MAIN_MENU
+        
+    except Exception as e:
+        logger.error(f"خطا در ثبت درخواست ربات: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ثبت درخواست رخ داده است. لطفاً مجدداً تلاش کنید.")
+        return REQUEST_BOT
 
 # -------------------- بخش نرم‌افزارهای ویندوزی --------------------
 async def windows_apps_menu(update: Update, context: CallbackContext):
@@ -1147,55 +1164,62 @@ async def save_app_request(update: Update, context: CallbackContext):
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
     
-    db["support"].append_row([
-        user_id,
-        username,
-        "درخواست نرم‌افزار ویندوزی",
-        user_text,
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending"
-    ])
-    
-    admin_message = (
-        f"درخواست جدید نرم‌افزار ویندوزی:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n\n"
-        f"توضیحات:\n{user_text}"
-    )
-    send_to_admin(context, admin_message)
-    
-    keyboard = [
-        ["منوی اصلی"]
-    ]
-    
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    
-    await update.message.reply_text(
-        "✅ درخواست شما با موفقیت ثبت شد.\n"
-        "پس از بررسی با شما تماس گرفته خواهد شد.",
-        reply_markup=reply_markup
-    )
-    
-    return MAIN_MENU
+    try:
+        # ذخیره در Google Sheets
+        db["support"].append_row([
+            user_id,
+            username,
+            "درخواست نرم‌افزار ویندوزی",
+            user_text,
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Pending"
+        ])
+        
+        # ارسال به ادمین
+        admin_message = (
+            f"💻 درخواست جدید نرم‌افزار ویندوزی\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user_id}\n"
+            f"📅 تاریخ: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"📝 توضیحات:\n{user_text}"
+        )
+        
+        await send_to_admin(context, admin_message)
+        
+        keyboard = [[BTN_BACK_TO_MAIN]]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        
+        await update.message.reply_text(
+            "✅ درخواست نرم‌افزار شما با موفقیت ثبت شد.\n"
+            "همکاران ما به زودی با شما تماس خواهند گرفت.",
+            reply_markup=reply_markup
+        )
+        
+        return MAIN_MENU
+        
+    except Exception as e:
+        logger.error(f"خطا در ثبت درخواست نرم‌افزار: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ثبت درخواست رخ داده است. لطفاً مجدداً تلاش کنید.")
+        return REQUEST_APP
 
 # -------------------- بخش پشتیبانی --------------------
 async def support_menu(update: Update, context: CallbackContext):
-    contact_keyboard = generate_contact_keyboard()  # استفاده از تابع تماس یکپارچه
+    contact_keyboard = generate_contact_keyboard()
     
     keyboard = [
         ["درخواست پشتیبانی/مشاوره"],
-        ["منوی اصلی"]
+        [BTN_BACK_TO_MAIN]
     ]
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
-    # ارسال پیام با دکمه‌های تماس اینلاین
     await update.message.reply_text(
         "🔧 *خدمات حرفه‌ای پشتیبانی و بهینه‌سازی* 🔧\n\n"
         "ما با تیم متخصص خود آماده ارائه خدمات:\n\n"
         "🛠 *پشتیبانی فنی:*\n"
         "• رفع باگ‌ها و مشکلات فوری\n"
         "• بهینه‌سازی سرعت بارگذاری\n"
-        "• افزایش امنیت و جلوگیری از نفوذ\n"
+        "• افزایش امنیت و جلوگیری از نفوذ\n\n"
         "⚡ *بهینه‌سازی حرفه‌ای:*\n"
         "• بهبود سئو فنی\n"
         "• تحلیل و رفع مشکلات عملکردی\n\n"
@@ -1246,39 +1270,54 @@ async def request_support(update: Update, context: CallbackContext):
     return REQUEST_SUPPORT
 
 async def save_support_request(update: Update, context: CallbackContext):
+    # اگر کاربر انصراف داد
+    if update.message.text == "انصراف":
+        return await support_menu(update, context)
+    
     user_text = update.message.text
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
     
-    db["support"].append_row([
-        user_id,
-        username,
-        "درخواست پشتیبانی",
-        user_text,
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending"
-    ])
-    
-    admin_message = (
-        f"درخواست جدید پشتیبانی:\n"
-        f"کاربر: {username} (آیدی: {user_id})\n\n"
-        f"توضیحات:\n{user_text}"
-    )
-    send_to_admin(context, admin_message)
-    
-    keyboard = [
-        ["منوی اصلی"]
-    ]
-    
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-    
-    await update.message.reply_text(
-        "✅ درخواست شما با موفقیت ثبت شد.\n"
-        "پس از بررسی با شما تماس گرفته خواهد شد.",
-        reply_markup=reply_markup
-    )
-    
-    return MAIN_MENU
+    try:
+        # ذخیره در Google Sheets
+        db["support"].append_row([
+            user_id,
+            username,
+            "درخواست پشتیبانی",
+            user_text,
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Pending"
+        ])
+        
+        # ارسال به ادمین
+        admin_message = (
+            f"🛠 درخواست جدید پشتیبانی\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user_id}\n"
+            f"📅 تاریخ: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"📝 توضیحات:\n{user_text}"
+        )
+        
+        await send_to_admin(context, admin_message)
+        
+        keyboard = [[BTN_BACK_TO_MAIN]]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+        
+        await update.message.reply_text(
+            "✅ درخواست پشتیبانی شما با موفقیت ثبت شد.\n"
+            "همکاران ما به زودی با شما تماس خواهند گرفت.",
+            reply_markup=reply_markup
+        )
+        
+        return MAIN_MENU
+        
+    except Exception as e:
+        logger.error(f"خطا در ثبت درخواست پشتیبانی: {str(e)}")
+        await update.message.reply_text(
+            "⚠️ خطایی در ثبت درخواست رخ داده است. لطفاً مجدداً تلاش کنید.",
+            reply_markup=ReplyKeyboardMarkup([["انصراف"]], resize_keyboard=True)
+        )
+        return REQUEST_SUPPORT
 
 # -------------------- بخش مشاوره --------------------
 async def consultation_menu(update: Update, context: CallbackContext):
@@ -1331,15 +1370,9 @@ async def handle_contact(update: Update, context: CallbackContext):
     
     return CONSULTATION
 async def save_consultation(update: Update, context: CallbackContext):
-    # بررسی آیا کاربر دکمه منوی اصلی را زده یا پیام واقعی ارسال کرده
-    if update.message.text in [BTN_BACK_TO_MAIN, "منوی اصلی"]:
-        return await start(update, context)  # مستقیماً به منوی اصلی بروید
-    
-    # فقط اگر پیام واقعی ارسال شده باشد، ادامه پردازش شود
     user_text = update.message.text
     user_id = update.message.from_user.id
     username = update.message.from_user.username or update.message.from_user.full_name
-    phone_number = context.user_data.get('user_phone', 'ثبت نشده')
     
     # ذخیره در Google Sheets
     db["support"].append_row([
@@ -1348,18 +1381,16 @@ async def save_consultation(update: Update, context: CallbackContext):
         "درخواست مشاوره",
         user_text,
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Pending",
-        phone_number
+        "Pending"
     ])
     
+    # ارسال به ادمین
+    admin_message = (
+        f"درخواست جدید مشاوره:\n"
+        f"کاربر: {username} (آیدی: {user_id})\n\n"
+        f"توضیحات:\n{user_text}"
+    )
     try:
-        # ارسال به ادمین (با بررسی خطا)
-        admin_message = (
-            f"درخواست جدید مشاوره:\n"
-            f"کاربر: {username} (آیدی: {user_id})\n"
-            f"شماره تماس: {phone_number}\n\n"
-            f"توضیحات:\n{user_text}"
-        )
         await context.bot.send_message(
             chat_id=1810708143,
             text=admin_message
@@ -1367,8 +1398,7 @@ async def save_consultation(update: Update, context: CallbackContext):
     except Exception as e:
         logger.error(f"خطا در ارسال پیام به ادمین: {str(e)}")
     
-    # پاسخ به کاربر
-    keyboard = [["منوی اصلی"]]
+    keyboard = [[BTN_BACK_TO_MAIN]]
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
     await update.message.reply_text(
@@ -1380,12 +1410,27 @@ async def save_consultation(update: Update, context: CallbackContext):
     return MAIN_MENU
 
 async def fallback_handler(update: Update, context: CallbackContext):
+    keyboard = [[BTN_BACK_TO_MAIN]]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    
     await update.message.reply_text(
-        "لطفاً از دکمه‌های منو استفاده کنید:",
-        reply_markup=ReplyKeyboardMarkup([[BTN_BACK_TO_MAIN]], resize_keyboard=True)
+        "⚠️ لطفاً از دکمه‌های منو استفاده کنید:",
+        reply_markup=reply_markup
     )
     return MAIN_MENU
+# ارسال به ادمین
 
+async def send_to_admin(context: CallbackContext, message: str, chat_id: int = 1810708143):
+    try:
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=message
+        )
+        logger.info(f"پیام با موفقیت به ادمین ارسال شد: {message[:50]}...")
+        return True
+    except Exception as e:
+        logger.error(f"خطا در ارسال پیام به ادمین: {str(e)}")
+        return False
 
 async def save_and_notify(context: CallbackContext, sheet_name: str, data: list, message: str):
     # ذخیره در Google Sheets
@@ -1693,6 +1738,7 @@ def main():
                     MessageHandler(filters.Text(BTN_FAVORITES), favorites_menu),
                     MessageHandler(filters.Text(BTN_SERVICES), services_menu),
                     MessageHandler(filters.Text(BTN_CONTACT), handle_contact_request),
+                    MessageHandler(filters.Text(BTN_BACK_TO_MAIN), start), 
                 ],
                 SEARCH_ITEMS: [
                     MessageHandler(filters.Text(BTN_BACK_TO_MAIN) | filters.Text("منوی اصلی"), start),
@@ -1782,8 +1828,8 @@ def main():
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 REQUEST_SUPPORT: [
-                    MessageHandler(filters.TEXT & ~filters.Text("انصراف"), save_support_request),
-                    MessageHandler(filters.Text("انصراف"), support_menu),
+                    MessageHandler(filters.TEXT & ~filters.Text(["انصراف"]), save_support_request),
+                    MessageHandler(filters.Text(["انصراف"]), support_menu),
                 ],
                 ABOUT_MENU: [
                     MessageHandler(filters.Text("درخواست مشاوره"), consultation_menu),
@@ -1797,9 +1843,9 @@ def main():
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 CONSULTATION: [
+                    MessageHandler(filters.TEXT & ~filters.Text([BTN_BACK_TO_MAIN, "انصراف"]), save_consultation),
+                    MessageHandler(filters.Text([BTN_BACK_TO_MAIN, "انصراف"]), start),
                     MessageHandler(filters.CONTACT, handle_contact),
-                    MessageHandler(filters.TEXT & ~filters.Text("انصراف"), save_consultation),
-                    MessageHandler(filters.Text("انصراف"), start),
                 ],
                 SERVICES_MENU: [
                     MessageHandler(filters.Text("درخواست مشاوره"), consultation_menu),
