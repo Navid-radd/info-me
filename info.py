@@ -433,47 +433,133 @@ async def toggle_website_favorite(update: Update, context: CallbackContext):
     return await show_website_item(update, context)
 
 async def send_website_to_admin(update: Update, context: CallbackContext):
-    website = context.user_data['category_websites'][context.user_data['current_website_index']]
-    user_id = update.message.from_user.id
-    username = update.message.from_user.username or update.message.from_user.full_name
-    
-    message = (
-        f"کاربر {username} (آیدی: {user_id}) وب‌سایت زیر را درخواست داده:\n\n"
-        f"عنوان: {website['Title']}\n"
-        f"دسته‌بندی: {website['Category']}\n"
-        f"توضیحات: {website['Description']}"
-    )
-    
-    send_to_admin(context, message)
-    await update.message.reply_text("درخواست شما به ادمین ارسال شد.")
+    try:
+        website = context.user_data['category_websites'][context.user_data['current_website_index']]
+        user = update.message.from_user
+        username = user.username or user.full_name
+        
+        message = (
+            f"🌐 درخواست جدید نمونه کار وبسایت\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user.id}\n"
+            f"📅 زمان: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"🏷 عنوان: {website['Title']}\n"
+            f"📌 دسته‌بندی: {website['Category']}\n"
+            f"📝 توضیحات: {website['Description']}\n"
+            f"🔗 لینک ویدئو: {website['VideoLink'] if website['VideoLink'] else 'ندارد'}"
+        )
+        
+        if await send_to_admin(context, message):
+            await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
+        else:
+            await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
+            
+    except Exception as e:
+        logger.error(f"خطا در ارسال وبسایت به ادمین: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ارسال نمونه کار رخ داد. لطفاً مجدداً تلاش کنید.")
     
     return WEBSITE_ITEM
 
+
+# تابع ارسال ربات تلگرام به ادمین:
+
+async def send_bot_to_admin(update: Update, context: CallbackContext):
+    try:
+        bot = db["telegram_bots"].get_all_records()[context.user_data['current_bot_index']]
+        user = update.message.from_user
+        username = user.username or user.full_name
+        
+        message = (
+            f"🤖 درخواست جدید نمونه کار ربات تلگرام\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user.id}\n"
+            f"📅 زمان: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"🏷 عنوان: {bot['Title']}\n"
+            f"📝 توضیحات: {bot['Description']}\n"
+            f"🔗 لینک ویدئو: {bot['VideoLink'] if bot['VideoLink'] else 'ندارد'}"
+        )
+        
+        if await send_to_admin(context, message):
+            await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
+        else:
+            await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
+            
+    except Exception as e:
+        logger.error(f"خطا در ارسال ربات به ادمین: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ارسال نمونه کار رخ داد. لطفاً مجدداً تلاش کنید.")
+    
+    return TELEGRAM_BOT_DETAILS
+
+# تابع ارسال نرم‌افزار به ادمین:
+
+async def send_app_to_admin(update: Update, context: CallbackContext):
+    try:
+        app = db["windows_apps"].get_all_records()[context.user_data['current_app_index']]
+        user = update.message.from_user
+        username = user.username or user.full_name
+        
+        message = (
+            f"💻 درخواست جدید نمونه کار نرم‌افزار ویندوزی\n\n"
+            f"👤 کاربر: {username}\n"
+            f"🆔 آیدی: {user.id}\n"
+            f"📅 زمان: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            f"🏷 عنوان: {app['Title']}\n"
+            f"📝 توضیحات: {app['Description']}\n"
+            f"🔗 لینک ویدئو: {app['VideoLink'] if app['VideoLink'] else 'ندارد'}"
+        )
+        
+        if await send_to_admin(context, message):
+            await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
+        else:
+            await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
+            
+    except Exception as e:
+        logger.error(f"خطا در ارسال نرم‌افزار به ادمین: {str(e)}")
+        await update.message.reply_text("⚠️ خطایی در ارسال نمونه کار رخ داد. لطفاً مجدداً تلاش کنید.")
+    
+    return WINDOWS_APP_DETAILS
+
 async def show_website_prices(update: Update, context: CallbackContext):
     prices = """
-🔧 *جدول هزینه‌های طراحی وب‌سایت* 🔧
+🔧 *لیست خدمات طراحی وب‌سایت* 🔧
 
 🖥 **پکیج پایه** (ویترینی):
-• طراحی ریسپانسیو
-• 5 صفحه اصلی
-• سئو پایه
-💰 هزینه: 5,000,000 تومان
+• طراحی ریسپانسیو و مدرن
+• 5 صفحه اصلی (صفحه اصلی، درباره ما، خدمات، نمونه کارها، تماس)
+• بهینه‌سازی سئو پایه
+• ایجاد فرم دریافت اطلاعات
+• پلایگین های اولیه
+• امنیت چندلایه
+• هاست و دامنه یکساله رایگان
+• پلایگین های اولیه
+• پشتیبانی 3 ماهه
 
 🛒 **پکیج فروشگاهی**:
-• تمامی امکانات پایه
-• سیستم فروش آنلاین
-• درگاه پرداخت
-💰 هزینه: 15,000,000 تومان
+• تمامی امکانات پکیج پایه
+• سیستم فروش آنلاین پیشرفته
+• ایجاد فرم دریافت اطلاعات
+• قابلیت اضافه شدن قابلیت خاص
+• درگاه پرداخت اینترنتی
+• سبد خرید و مدیریت سفارشات
+• سیستم تخفیف و کدهای تبلیغاتی
+• پلایگین های پیشرفته
+• پشتیبانی 6 ماهه
 
 🏢 **پکیج شرکتی**:
-• طراحی اختصاصی
+• طراحی اختصاصی و منحصر بفرد
 • پنل مدیریت پیشرفته
+• سیستم بلاگ و اخبار
+• فرم‌های تماس پیشرفته
+• یکپارچه‌سازی با شبکه‌های اجتماعی
+• قابلیت اضافه شدن قابلیت خاص
 • پشتیبانی 6 ماهه
-💰 هزینه: 10,000,000 تومان
 
 💡 *نکات مهم:*
-• قیمت‌ها تقریبی و بسته به نیازها متفاوت است
-• امکان پرداخت اقساطی وجود دارد
+• خدمات به صورت کاملاً سفارشی‌سازی ارائه می‌شود
+• امکان اضافه یا کم کردن امکانات وجود دارد
+• زمان تحویل پروژه بسته به پیچیدگی متغیر است
+
+📞 برای استعلام دقیق قیمت و دریافت مشاوره رایگان، لطفاً با پشتیبانی تماس بگیرید:
 """
     
     keyboard = [
@@ -1799,6 +1885,7 @@ def main():
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), show_bot_details),
                     MessageHandler(filters.Text("درخواست ربات مشابه"), request_bot),
                     MessageHandler(filters.Text("منوی ربات‌ها"), telegram_bots_menu),
+                    MessageHandler(filters.Text("ارسال به ادمین"), send_bot_to_admin),
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 REQUEST_BOT: [
@@ -1817,6 +1904,7 @@ def main():
                     MessageHandler(filters.Text("◀ قبلی") | filters.Text("بعدی ▶"), show_app_details),
                     MessageHandler(filters.Text("درخواست نرم‌افزار مشابه"), request_app),
                     MessageHandler(filters.Text("منوی نرم‌افزارها"), windows_apps_menu),
+                    MessageHandler(filters.Text("ارسال به ادمین"), send_app_to_admin),
                     MessageHandler(filters.Text("منوی اصلی"), start),
                 ],
                 REQUEST_APP: [
