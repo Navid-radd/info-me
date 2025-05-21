@@ -449,7 +449,9 @@ async def send_website_to_admin(update: Update, context: CallbackContext):
             f"🔗 لینک ویدئو: {website['VideoLink'] if website['VideoLink'] else 'ندارد'}"
         )
         
-        if await send_to_admin(context, message):
+        # ارسال پیام و تصویر (اگر وجود داشته باشد)
+        image_url = website.get('ImageURL', None)
+        if await send_to_admin(context, message, image_url=image_url):
             await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
         else:
             await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
@@ -479,7 +481,9 @@ async def send_bot_to_admin(update: Update, context: CallbackContext):
             f"🔗 لینک ویدئو: {bot['VideoLink'] if bot['VideoLink'] else 'ندارد'}"
         )
         
-        if await send_to_admin(context, message):
+        # ارسال پیام و تصویر (اگر وجود داشته باشد)
+        image_url = bot.get('ImageURL', None)
+        if await send_to_admin(context, message, image_url=image_url):
             await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
         else:
             await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
@@ -508,7 +512,9 @@ async def send_app_to_admin(update: Update, context: CallbackContext):
             f"🔗 لینک ویدئو: {app['VideoLink'] if app['VideoLink'] else 'ندارد'}"
         )
         
-        if await send_to_admin(context, message):
+        # ارسال پیام و تصویر (اگر وجود داشته باشد)
+        image_url = app.get('ImageURL', None)
+        if await send_to_admin(context, message, image_url=image_url):
             await update.message.reply_text("✅ نمونه کار با موفقیت به ادمین ارسال شد.")
         else:
             await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
@@ -1506,12 +1512,19 @@ async def fallback_handler(update: Update, context: CallbackContext):
     return MAIN_MENU
 # ارسال به ادمین
 
-async def send_to_admin(context: CallbackContext, message: str, chat_id: int = 1810708143):
+async def send_to_admin(context: CallbackContext, message: str, chat_id: int = 1810708143, image_url: str = None):
     try:
-        await context.bot.send_message(
-            chat_id=chat_id,
-            text=message
-        )
+        if image_url:  # اگر URL تصویر وجود داشته باشد
+            await context.bot.send_photo(
+                chat_id=chat_id,
+                photo=image_url,
+                caption=message
+            )
+        else:  # اگر تصویری وجود نداشته باشد، فقط متن ارسال شود
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text=message
+            )
         logger.info(f"پیام با موفقیت به ادمین ارسال شد: {message[:50]}...")
         return True
     except Exception as e:
@@ -1614,21 +1627,29 @@ async def show_favorite_item(update: Update, context: CallbackContext):
     if item_type == 'website':
         sheet = db["websites"]
         item = next((w for w in sheet.get_all_records() if w['ID'] == item_id), None)
+        item_type_fa = "وب‌سایت"
         item_title = item['Title'] if item else "وب‌سایت (حذف شده)"
         description = item['Description'] if item else "این آیتم دیگر موجود نیست"
+        image_url = item.get('ImageURL', None) if item else None
     elif item_type == 'telegram_bot':
         sheet = db["telegram_bots"]
         item = next((b for b in sheet.get_all_records() if b['ID'] == item_id), None)
+        item_type_fa = "ربات تلگرام"
         item_title = item['Title'] if item else "ربات تلگرام (حذف شده)"
         description = item['Description'] if item else "این آیتم دیگر موجود نیست"
+        image_url = item.get('ImageURL', None) if item else None
     elif item_type == 'windows_app':
         sheet = db["windows_apps"]
         item = next((a for a in sheet.get_all_records() if a['ID'] == item_id), None)
+        item_type_fa = "نرم‌افزار ویندوزی"
         item_title = item['Title'] if item else "نرم‌افزار (حذف شده)"
         description = item['Description'] if item else "این آیتم دیگر موجود نیست"
+        image_url = item.get('ImageURL', None) if item else None
     else:
+        item_type_fa = "آیتم ناشناخته"
         item_title = "آیتم ناشناخته"
         description = "نوع این آیتم شناسایی نشد"
+        image_url = None
     
     # حذف پیام در حال دریافت قبل از نمایش آیتم
     await context.bot.delete_message(
@@ -1636,8 +1657,7 @@ async def show_favorite_item(update: Update, context: CallbackContext):
         message_id=context.user_data['loading_msg_id']
     )
     
-    # بقیه کد بدون تغییر...
-    
+    # آماده‌سازی کیبورد
     keyboard = []
     
     # دکمه‌های ناوبری
@@ -1658,17 +1678,27 @@ async def show_favorite_item(update: Update, context: CallbackContext):
     
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     
+    # آماده‌سازی متن پیام
     message_text = (
         f"🔖 آیتم {index + 1} از {len(favorites)}\n\n"
-        f"📌 نوع: {'وب‌سایت' if item_type == 'website' else 'ربات تلگرام' if item_type == 'telegram_bot' else 'نرم‌افزار'}\n"
+        f"📌 نوع: {item_type_fa}\n"
         f"🏷 عنوان: {item_title}\n\n"
-        f"📝 توضیحات:\n{description}"
+        f"📝 توضیحات:\n{description}\n"
+        f"🔗 لینک ویدئو: {item.get('VideoLink', 'ندارد') if item else 'ندارد'}"
     )
     
-    await update.message.reply_text(
-        text=message_text,
-        reply_markup=reply_markup
-    )
+    # ارسال پیام با تصویر یا بدون تصویر
+    if image_url:
+        await update.message.reply_photo(
+            photo=image_url,
+            caption=message_text,
+            reply_markup=reply_markup
+        )
+    else:
+        await update.message.reply_text(
+            text=message_text,
+            reply_markup=reply_markup
+        )
     
     return FAVORITES_MENU
 
@@ -1735,12 +1765,16 @@ async def send_favorite_to_admin(update: Update, context: CallbackContext):
             f"کاربر {username} (آیدی: {user_id}) آیتم زیر را از علاقه‌مندی‌های خود برای شما ارسال کرده:\n\n"
             f"نوع: {item_type_fa}\n"
             f"عنوان: {item['Title']}\n"
-            f"توضیحات: {item['Description']}"
+            f"توضیحات: {item['Description']}\n"
+            f"🔗 لینک ویدئو: {item['VideoLink'] if item['VideoLink'] else 'ندارد'}"
         )
-        send_to_admin(context, message)
-        await update.message.reply_text("آیتم به ادمین ارسال شد!")
+        image_url = item.get('ImageURL', None)
+        if await send_to_admin(context, message, image_url=image_url):
+            await update.message.reply_text("✅ آیتم با موفقیت به ادمین ارسال شد!")
+        else:
+            await update.message.reply_text("⚠️ خطا در ارسال به ادمین. لطفاً مجدداً تلاش کنید.")
     else:
-        await update.message.reply_text("خطا در یافتن آیتم!")
+        await update.message.reply_text("⚠️ خطا در یافتن آیتم!")
     
     return FAVORITES_MENU
 
