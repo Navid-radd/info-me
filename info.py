@@ -97,6 +97,7 @@ def setup_logging():
     logger.addHandler(console_handler)
 
 setup_logging()
+
 logger = logging.getLogger(__name__)
 
 # اتصال به Google Sheets
@@ -107,12 +108,30 @@ try:
     scope = ["https://spreadsheets.google.com/feeds", 
              "https://www.googleapis.com/auth/drive"]
     
+    # بررسی وجود متغیرهای محیطی
+    required_env_vars = [
+        "GOOGLE_PROJECT_ID",
+        "GOOGLE_PRIVATE_KEY_ID",
+        "GOOGLE_PRIVATE_KEY",
+        "GOOGLE_CLIENT_EMAIL",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_X509_CERT_URL"
+    ]
+    
+    missing_vars = [var for var in required_env_vars if not os.getenv(var)]
+    if missing_vars:
+        error_msg = f"متغیرهای محیطی ضروری یافت نشدند: {', '.join(missing_vars)}"
+        logger.critical(error_msg)
+        raise ValueError(error_msg)
+    
     # ایجاد اعتبارنامه از متغیرهای محیطی
+    private_key = os.getenv("GOOGLE_PRIVATE_KEY").replace('\\n', '\n')
+    
     creds = ServiceAccountCredentials.from_json_keyfile_dict({
         "type": "service_account",
         "project_id": os.getenv("GOOGLE_PROJECT_ID"),
         "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
-        "private_key": os.getenv("GOOGLE_PRIVATE_KEY").replace('\\n', '\n'),
+        "private_key": private_key,
         "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
         "client_id": os.getenv("GOOGLE_CLIENT_ID"),
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
