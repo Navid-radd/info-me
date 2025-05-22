@@ -1,6 +1,6 @@
 import gspread
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, InputMediaPhoto,InlineKeyboardButton,InlineKeyboardMarkup
-
+gc = gspread.service_account(filename='creds.json')
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -18,6 +18,13 @@ import logging
 import asyncio
 import traceback
 from logging.handlers import RotatingFileHandler
+
+
+
+
+
+
+
 
 # تنظیمات اولیه
 load_dotenv("config.env")
@@ -70,48 +77,20 @@ BTN_BACK_TO_MAIN = "منوی اصلی 🔙"
 BTN_CONTACT = "📞 تماس با ما"
 CONTACT_NUMBER = "09158708858"
 # تنظیمات Google Sheets
-scope = ["https://spreadsheets.google.com/feeds", 
-        "https://www.googleapis.com/auth/drive"]
-
-# تنظیمات پیشرفته لاگ‌گیری
-def setup_logging():
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    
-    file_handler = RotatingFileHandler(
-        'bot_debug.log',
-        maxBytes=1024 * 1024 * 5,
-        backupCount=3,
-        encoding='utf-8'
-    )
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(logging.DEBUG)
-    
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    console_handler.setLevel(logging.INFO)
-    
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
-
-setup_logging()
 logger = logging.getLogger(__name__)
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
 
-# اتصال به Google Sheets
 try:
-    logger.info("در حال اتصال به Google Sheets...")
-    creds = ServiceAccountCredentials.from_json_keyfile_name(
-        "radoteam-0da92609cd4a.json", scope)
+    logger.info("در حال خواندن فایل JSON...")
+    creds = Credentials.from_service_account_file("radoteam-0da92609cd4a.json", scopes=scope)
+    logger.info("اتصال به Google Sheets...")
     client = gspread.authorize(creds)
-    
     logger.info("در حال باز کردن اسپردشیت...")
     sheet = client.open_by_key("1w7lQNjPnNR8lHBfneWOwQGSM3KCWtUSIPChH8l8R-xs")
     
-    worksheets = sheet.worksheets()
-    logger.info(f"ورق‌های موجود: {[ws.title for ws in worksheets]}")
-
     # دسترسی به شیت‌های مختلف
     sheet_mapping = {
         'websites': 'websites',
@@ -136,8 +115,7 @@ try:
             raise
 
 except Exception as e:
-    logger.critical("خطای بحرانی در اتصال به Google Sheets:")
-    logger.critical(str(e))
+    logger.critical(f"خطای بحرانی در اتصال به Google Sheets: {str(e)}")
     logger.critical(traceback.format_exc())
     raise
 
