@@ -104,10 +104,6 @@ try:
     logger.info("در حال اتصال به Google Sheets...")
     
     # تعریف scope
-try:
-    logger.info("در حال اتصال به Google Sheets...")
-    
-    # تعریف scope
     scope = ["https://spreadsheets.google.com/feeds", 
              "https://www.googleapis.com/auth/drive"]
     
